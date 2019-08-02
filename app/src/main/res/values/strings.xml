@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Your HeartBeat</string>
+    <string name="phone_input_hint">Your Phone Number</string>
+</resources>

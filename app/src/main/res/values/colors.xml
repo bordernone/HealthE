@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorSchemePrimary">#FF4B7E</color>
+    <color name="colorSchemePastelRed">#FF6B69</color>
+    <color name="colorSchemeCoral">#FB7C59</color>
+    <color name="colorSchemeNeon">#FC9A43</color>
+    <color name="colorSchemeGainsboro">#D4DFE5</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorSchemeGray">#969696</color>
+</resources>
