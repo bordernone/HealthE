@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="bloog_grp_array">
+    <string-array name="blood_grp_array">
+        <item>Your Blood Group</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
