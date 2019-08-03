@@ -9,20 +9,17 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
-public class MainActivity extends AppCompatActivity {
+public class RequestDonation extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
+        setContentView(R.layout.activity_request_donation);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner_blood_grp);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_grp_array_reg, R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_grp_array_req, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -38,16 +35,6 @@ public class MainActivity extends AppCompatActivity {
                     setElevation(v, 12);
                 }
                 return true;
-            }
-        });
-
-        // Request donation button
-        Button button = (Button) findViewById(R.id.registerReqDonationBtn);
-
-        button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent moveToRequest = new Intent(MainActivity.this, RequestDonation.class);
-                startActivity(moveToRequest);
             }
         });
     }
