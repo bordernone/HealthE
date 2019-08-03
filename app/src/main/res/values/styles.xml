@@ -17,4 +17,7 @@
         <item name="colorAccent">@color/colorSchemeNeon</item>
     </style>
 
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+
+    </style>
 </resources>
