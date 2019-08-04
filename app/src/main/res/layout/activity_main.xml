@@ -25,7 +25,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:elevation="12dp"
         android:translationX="0dp"
-        android:translationY="0dp">
+        android:translationY="0dp"
+        android:transitionName="example_transition">
 
     <ImageView
         android:id="@+id/mainlogo"
