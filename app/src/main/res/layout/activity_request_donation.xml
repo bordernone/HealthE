@@ -139,13 +139,13 @@
             android:background="@drawable/inputfield"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Additional Note"
+            android:hint="Additional Note (Optional)"
             android:inputType="textMultiLine"
             android:padding="12dp"
+            android:textColor="@color/colorSchemeGray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/const_layout_bld_grp"
-            android:textColor="@color/colorSchemeGray"/>
+            app:layout_constraintTop_toBottomOf="@+id/const_layout_bld_grp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
