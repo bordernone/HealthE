@@ -50,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(moveToRequest);
             }
         });
+
+        // Participate btn
+        Button participateBtn = (Button) findViewById(R.id.register_btn);
+        participateBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent myIntent = new Intent(MainActivity.this, Dashboard.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
     public void setElevation(View v, int units){
