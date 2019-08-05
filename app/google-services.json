@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "160281969749",
+    "firebase_url": "https://yourheartbeat-576a5.firebaseio.com",
+    "project_id": "yourheartbeat-576a5",
+    "storage_bucket": "yourheartbeat-576a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160281969749:android:de73fec5b33fb421",
+        "android_client_info": {
+          "package_name": "io.coderslab.yourheartbeat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160281969749-s5tv5vgdtd123c0u08fg6qfpeu9eg0c1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmJJ4bVmGxv_RBn05UvwQDdqoekDZ32ZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160281969749-s5tv5vgdtd123c0u08fg6qfpeu9eg0c1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

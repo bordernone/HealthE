@@ -13,6 +13,8 @@ import android.widget.Spinner;
 
 public class RequestDonation extends AppCompatActivity {
 
+    ConstraintLayout registerWrapper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,29 @@ public class RequestDonation extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
 
-        ConstraintLayout registerWrapper = (ConstraintLayout) findViewById(R.id.registerformbg);
+        registerWrapper = (ConstraintLayout) findViewById(R.id.registerformbg);
+
+        setOnRegisterWrapperTouchEvent();
+    }
+
+    protected void onStop(){
+        super.onStop();
+        registerWrapper.setOnTouchListener(null);
+    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        registerWrapper.setOnTouchListener(null);
+    }
+
+    public void setElevation(View v, int units){
+        int apiLevel = Build.VERSION.SDK_INT;
+        if (apiLevel >= 21){
+            v.setElevation(units);
+        }
+    }
+
+    private void setOnRegisterWrapperTouchEvent(){
         registerWrapper.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -37,12 +61,5 @@ public class RequestDonation extends AppCompatActivity {
                 return true;
             }
         });
-    }
-
-    public void setElevation(View v, int units){
-        int apiLevel = Build.VERSION.SDK_INT;
-        if (apiLevel >= 21){
-            v.setElevation(units);
-        }
     }
 }

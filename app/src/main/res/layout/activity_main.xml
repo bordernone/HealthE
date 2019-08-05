@@ -6,139 +6,139 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSchemePastelRed"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/registerformbg"
         android:layout_width="0dp"
         android:layout_height="480dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_corner"
+        android:elevation="12dp"
+        android:transitionName="example_transition"
+        android:translationX="0dp"
+        android:translationY="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="12dp"
-        android:translationX="0dp"
-        android:translationY="0dp"
-        android:transitionName="example_transition">
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/mainlogo"
-        android:layout_width="138dp"
-        android:layout_height="177dp"
-        android:layout_marginTop="8dp"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintEnd_toEndOf="@+id/registerformbg"
-        app:layout_constraintStart_toStartOf="@+id/registerformbg"
-        app:layout_constraintTop_toTopOf="@+id/registerformbg"
-        app:srcCompat="@drawable/heartbeatlogo" />
+        <ImageView
+            android:id="@+id/mainlogo"
+            android:layout_width="138dp"
+            android:layout_height="177dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="@+id/registerformbg"
+            app:layout_constraintStart_toStartOf="@+id/registerformbg"
+            app:layout_constraintTop_toTopOf="@+id/registerformbg"
+            app:srcCompat="@drawable/heartbeatlogo" />
 
-    <EditText
-        android:id="@+id/phoneInputField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/inputfield"
-        android:drawableLeft="@drawable/ic_account_box_colorprimary_24dp"
-        android:drawablePadding="4dp"
-        android:ems="10"
-        android:hint="@string/phone_input_hint"
-        android:inputType="phone"
-        android:paddingLeft="8dp"
-        android:paddingTop="12dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="12dp"
-        android:textColor="@color/colorSchemeGray"
-        app:layout_constraintEnd_toEndOf="@+id/registerformbg"
-        app:layout_constraintStart_toStartOf="@+id/registerformbg"
-        app:layout_constraintTop_toBottomOf="@+id/mainlogo" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/const_layout_bld_grp"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/registerformbg"
-        app:layout_constraintStart_toStartOf="@+id/registerformbg"
-        app:layout_constraintTop_toBottomOf="@+id/phoneInputField">
-
-        <RelativeLayout
-            android:id="@+id/relative_layout_bld_grp"
+        <EditText
+            android:id="@+id/phoneInputField"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/inputfield"
+            android:drawableLeft="@drawable/ic_account_box_colorprimary_24dp"
+            android:drawablePadding="4dp"
+            android:ems="10"
+            android:hint="@string/phone_input_hint"
+            android:inputType="phone"
+            android:paddingLeft="8dp"
+            android:paddingTop="12dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="12dp"
+            android:textColor="@color/colorSchemeGray"
+            app:layout_constraintEnd_toEndOf="@+id/registerformbg"
+            app:layout_constraintStart_toStartOf="@+id/registerformbg"
+            app:layout_constraintTop_toBottomOf="@+id/mainlogo" />
 
-            <EditText
-                android:id="@+id/editTextBldGrpPseudo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/inputfield"
-                android:clickable="false"
-                android:drawableLeft="@drawable/ic_group_colorprimary_24dp"
-                android:editable="false"
-                android:ems="10"
-                android:enabled="false"
-                android:inputType="phone"
-                android:paddingLeft="8dp"
-                android:paddingTop="12dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="12dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_layout_bld_grp"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/registerformbg"
+            app:layout_constraintStart_toStartOf="@+id/registerformbg"
+            app:layout_constraintTop_toBottomOf="@+id/phoneInputField">
 
-            <Spinner
-                android:id="@+id/spinner_blood_grp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="38dp" />
+            <RelativeLayout
+                android:id="@+id/relative_layout_bld_grp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/editTextBldGrpPseudo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/inputfield"
+                    android:clickable="false"
+                    android:drawableLeft="@drawable/ic_group_colorprimary_24dp"
+                    android:editable="false"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:inputType="phone"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="12dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_blood_grp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="38dp" />
 
 
-        </RelativeLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/register_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/btn_fill_color_primary"
-        android:text="Participate!"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="@+id/registerformbg"
-        app:layout_constraintStart_toStartOf="@+id/registerformbg"
-        app:layout_constraintTop_toBottomOf="@+id/const_layout_bld_grp" />
+        <Button
+            android:id="@+id/register_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/btn_fill_color_primary"
+            android:text="Participate!"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/registerformbg"
+            app:layout_constraintStart_toStartOf="@+id/registerformbg"
+            app:layout_constraintTop_toBottomOf="@+id/const_layout_bld_grp" />
 
-    <TextView
-        android:id="@+id/textViewForRequestDonation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="OR"
-        app:layout_constraintEnd_toEndOf="@+id/registerformbg"
-        app:layout_constraintStart_toStartOf="@+id/registerformbg"
-        app:layout_constraintTop_toBottomOf="@+id/register_btn" />
+        <TextView
+            android:id="@+id/textViewForRequestDonation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="OR"
+            app:layout_constraintEnd_toEndOf="@+id/registerformbg"
+            app:layout_constraintStart_toStartOf="@+id/registerformbg"
+            app:layout_constraintTop_toBottomOf="@+id/register_btn" />
 
         <Button
             android:id="@+id/registerReqDonationBtn"
@@ -156,5 +156,24 @@
             app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="@+id/registerformbg"
             app:layout_constraintTop_toBottomOf="@+id/textViewForRequestDonation" />
+
+        <ProgressBar
+            android:id="@+id/registerBtnProgressBar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Small.Title"
+            android:layout_width="26dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:clickable="false"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorWhite"
+            android:indeterminateTintMode="src_atop"
+            android:translationZ="30dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/register_btn"
+            app:layout_constraintEnd_toEndOf="@+id/register_btn"
+            app:layout_constraintStart_toStartOf="@+id/register_btn"
+            app:layout_constraintTop_toTopOf="@+id/register_btn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
