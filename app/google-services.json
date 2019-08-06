@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "160281969749-tt1uut08drrtlf1obaen2de6131gf97n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.coderslab.yourheartbeat",
+            "certificate_hash": "8c0fba55dfa6d5cbf3ae8bf06b50075ecf6a8972"
+          }
+        },
+        {
           "client_id": "160281969749-s5tv5vgdtd123c0u08fg6qfpeu9eg0c1.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -55,7 +55,7 @@
                     app:srcCompat="@drawable/heartbeatlogo" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/verificationCodeEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -79,16 +79,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/mainlogo2" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/verifyBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:background="@drawable/btn_fill_color_primary"
                     android:text="Continue!"
                     android:textColor="@color/colorWhite"
-                    app:layout_constraintEnd_toEndOf="@+id/editText2"
-                    app:layout_constraintStart_toStartOf="@+id/editText2"
-                    app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                    app:layout_constraintEnd_toEndOf="@+id/verificationCodeEditText"
+                    app:layout_constraintStart_toStartOf="@+id/verificationCodeEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/verificationCodeEditText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

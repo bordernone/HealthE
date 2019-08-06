@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import Utilities.utils;
+
 public class MainActivity extends AppCompatActivity {
     // variables to hold input values
     private String phoneNumber;
@@ -46,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // DELETE THIS WHEN DONE TESTING
-        Intent myIntent = new Intent(this, VerifyMobile.class);
-        startActivity(myIntent);
+        Intent intent = new Intent(this, VerificationSuccess.class);
+        startActivity(intent);
 
         // Reference input fields
         phoneInputField = (EditText) findViewById(R.id.phoneInputField);
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                signUp();
+                handleRegisterBtnClick();
             }
         });
     }
@@ -106,20 +107,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void signUp(){
-        if (!isLoading){
-            toggleRegisterBtnLoad(); // set button loading visible
+    private void handleRegisterBtnClick(){
+        phoneNumber = phoneInputField.getText().toString().replaceAll("[^0-9]", "");
+        bloodGroupId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
 
-            // process sign up
-            phoneNumber = phoneInputField.getText().toString();
-            bloodGroupId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
+        // Alert dialog
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
-            if (bloodGroupId == 0){
-                // alert to select a blood group
+        if (bloodGroupId == 0){
+            alertDialog.setTitle("Error");
+            alertDialog.setMessage("Please select a blood group.");
+            alertDialog.setPositiveButton("Okay",null);
+            alertDialog.show();
+        } else {
+            if (utils.isNumberValid(phoneNumber) == true){
+                // Everything is OK; Move to registration
+
+                Intent verifyMobile = new Intent(MainActivity.this, VerifyMobile.class);
+                verifyMobile.putExtra("phoneNumber", phoneNumber);
+                verifyMobile.putExtra("bloodGroupId", bloodGroupId);
+                startActivity(verifyMobile);
             } else {
-
+                alertDialog.setTitle("Error");
+                alertDialog.setMessage("Please enter a valid number");
+                alertDialog.setPositiveButton("Okay",null);
+                alertDialog.show();
             }
-            Log.i("MYAPP", bloodGrpList[1]);
         }
     }
 
