@@ -33,12 +33,13 @@
                 android:layout_marginRight="24dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/rounded_corner"
+                android:elevation="12dp"
+                android:paddingBottom="24dp"
+                android:translationZ="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:elevation="12dp"
-                android:translationZ="0dp">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -64,7 +65,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/verificationSuccessContinueBtn"
                     android:layout_width="154dp"
                     android:layout_height="46dp"
                     android:layout_marginStart="8dp"
@@ -72,11 +73,9 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginBottom="32dp"
                     android:background="@drawable/btn_fill_color_primary"
                     android:text="Continue"
                     android:textColor="@color/colorWhite"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView3" />

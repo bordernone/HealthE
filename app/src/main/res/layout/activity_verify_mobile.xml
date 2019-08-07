@@ -37,7 +37,7 @@
                 android:background="@drawable/rounded_corner"
                 android:elevation="12dp"
                 android:paddingTop="16dp"
-                android:paddingBottom="32dp"
+                android:paddingBottom="24dp"
                 android:translationZ="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/mainWrapper"
                 app:layout_constraintEnd_toEndOf="@+id/mainWrapper"
@@ -73,6 +73,8 @@
                     android:paddingTop="12dp"
                     android:paddingRight="8dp"
                     android:paddingBottom="12dp"
+                    android:textColor="@color/colorSchemeGray"
+                    android:textColorLink="@color/colorSchemeGray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,12 +82,15 @@
 
                 <Button
                     android:id="@+id/verifyBtn"
+                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/btn_fill_color_primary"
                     android:text="Continue!"
                     android:textColor="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/verificationCodeEditText"
                     app:layout_constraintStart_toStartOf="@+id/verificationCodeEditText"
                     app:layout_constraintTop_toBottomOf="@+id/verificationCodeEditText" />

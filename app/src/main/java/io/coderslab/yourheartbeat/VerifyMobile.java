@@ -1,16 +1,17 @@
 package io.coderslab.yourheartbeat;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import Utilities.User;
+import Utilities.utils;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,9 +26,11 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyMobile extends AppCompatActivity {
+    private final String className = "VerifyMobile.class";
+
     // variables
     private String phoneNumber;
-    private String bloodGroup;
+    private Integer bloodGroupId;
     private String mVerificationId;
     private FirebaseAuth mAuth;
     private String verificationCode;
@@ -43,6 +46,11 @@ public class VerifyMobile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_mobile);
 
+        // if user is already logged in, take them to Dashboard
+        if (User.isUserLoggedIn()){
+            utils.moveToActivity(VerifyMobile.this, Dashboard.class);
+        }
+
         // Get Firebase auth instance
         mAuth = FirebaseAuth.getInstance();
 
@@ -53,7 +61,9 @@ public class VerifyMobile extends AppCompatActivity {
         if (setValuesPhoneNumberBloodGroup(savedInstanceState) == true) {
             sendVerificationCode(phoneNumber);
         } else {
-            Log.e("YHB", "Can't retrieve phone number or blood group");
+            utils.alertError("Something went wrong. Please try again.", VerifyMobile.this);
+            utils.moveToActivity(VerifyMobile.this, MainActivity.class);
+            utils.logError("4. Can't retrieve phone number or blood group", className);
         }
 
         verifyButton.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +75,13 @@ public class VerifyMobile extends AppCompatActivity {
     }
 
     private void handleVerifyBtnClick(){
-        verificationCode = verificationCodeInputField.getText().toString();
-        verifyVerificationCode(verificationCode);
+        try{
+            verificationCode = verificationCodeInputField.getText().toString();
+            verifyVerificationCode(verificationCode);
+        } catch (Exception e){
+            utils.alertError("Something went wrong. Please try again.", VerifyMobile.this);
+            utils.logError("6. " + e.getMessage(), className);
+        }
     }
 
     private boolean setValuesPhoneNumberBloodGroup(Bundle savedInstanceState) {
@@ -74,44 +89,41 @@ public class VerifyMobile extends AppCompatActivity {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                // produce error or return to main activity
                 valuesSet = false;
-                alertError("Something went wrong. Please try again.");
-                moveToMainActivity();
             } else {
                 // get the values
                 phoneNumber = extras.getString("phoneNumber");
-                bloodGroup = extras.getString("bloodGroupId");
+                Boolean temp = false;
+                try {
+                    bloodGroupId = Integer.valueOf(extras.getString("bloodGroupId"));
+                    temp = true;
+                } catch (Exception e){
+                    // produce error or return to main activity
+                    valuesSet = false;
+                    utils.logInfo("1. Can't get integer value of blood group id: " + extras.getString("bloodGroupId"), className);
+                }
+                if (temp){
+                    if (utils.isNumberValid(phoneNumber) != true || User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this) == false){
+                        // produce error or return to main activity
+                        valuesSet = false;
+                        utils.logInfo("2. Can't get integer value of blood group id: " + extras.getString("bloodGroupId"), className);
+                    }
+                }
             }
         } else {
             // get the values
             phoneNumber = (String) savedInstanceState.getSerializable("phoneNumber");
-            bloodGroup = (String) savedInstanceState.getSerializable("bloodGroupId");
+            String temp = "";
+            try{
+                temp = (String) savedInstanceState.getSerializable("bloodGroupId");
+                bloodGroupId = Integer.valueOf((String) savedInstanceState.getSerializable("bloodGroupId"));
+            } catch (Exception e){
+                // produce error or return to main activity
+                valuesSet = false;
+                utils.logInfo("3. Can't get integer value of blood group id: " + temp, className);
+            }
         }
         return valuesSet;
-    }
-
-    private void moveToMainActivity() {
-        Intent intent = new Intent(VerifyMobile.this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void alertError(String errorMsg) {
-        // Alert dialog
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(VerifyMobile.this);
-        alertDialog.setTitle("Error");
-        alertDialog.setMessage(errorMsg);
-        alertDialog.setPositiveButton("Okay", null);
-        alertDialog.show();
-    }
-
-    private void alertInfo(String message) {
-        // Alert dialog
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(VerifyMobile.this);
-        alertDialog.setTitle("Info");
-        alertDialog.setMessage(message);
-        alertDialog.setPositiveButton("Okay", null);
-        alertDialog.show();
     }
 
     private void sendVerificationCode(String phoneNumber) {
@@ -166,14 +178,17 @@ public class VerifyMobile extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            alertInfo("Success");
+                            Intent verifySuccess = new Intent(VerifyMobile.this, VerificationSuccess.class);
+                            verifySuccess.putExtra("bloodGroupId", String.valueOf(bloodGroupId));
+                            verifySuccess.putExtra("phoneNumber", phoneNumber);
+                            startActivity(verifySuccess);
                         } else {
                             //verification unsuccessful.. display an error message
                             String message = "Something is wrong, we will fix it soon.";
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 message = "Invalid Code";
                             }
-                            alertError(message);
+                            utils.alertError(message, VerifyMobile.this);
                         }
                     }
                 });

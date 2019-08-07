@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import Utilities.User;
 import Utilities.utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, VerificationSuccess.class);
-        startActivity(intent);
+        // if user is already logged in, take them to Dashboard
+        if (User.isUserLoggedIn()){
+            utils.moveToActivity(MainActivity.this, Dashboard.class);
+        }
 
-        // Reference input fields
+        // Reference components
         phoneInputField = (EditText) findViewById(R.id.phoneInputField);
         bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp);
-
-        // Reference Progressbars
         registerBtnProgressBar = (ProgressBar) findViewById(R.id.registerBtnProgressBar);
 
         // Populate blood group list
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bloodGrpSpinner.setAdapter(adapter);
 
-        // Subtle Animation for the container
+        // Animation for the container
         registerWrapper = (ConstraintLayout) findViewById(R.id.registerformbg);
         registerWrapper.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -85,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
         requestDonationBtn = (Button) findViewById(R.id.registerReqDonationBtn);
         requestDonationBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent moveToRequest = new Intent(MainActivity.this, RequestDonation.class);
-                startActivity(moveToRequest);
+                utils.moveToActivity(MainActivity.this, RequestDonation.class);
             }
         });
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         // Alert dialog
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
-        if (bloodGroupId == 0){
+        if (User.isValidBloodGrpId(bloodGroupId, MainActivity.this) == false){
             alertDialog.setTitle("Error");
             alertDialog.setMessage("Please select a blood group.");
             alertDialog.setPositiveButton("Okay",null);
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent verifyMobile = new Intent(MainActivity.this, VerifyMobile.class);
                 verifyMobile.putExtra("phoneNumber", phoneNumber);
-                verifyMobile.putExtra("bloodGroupId", bloodGroupId);
+                verifyMobile.putExtra("bloodGroupId", String.valueOf(bloodGroupId));
                 startActivity(verifyMobile);
             } else {
                 alertDialog.setTitle("Error");
