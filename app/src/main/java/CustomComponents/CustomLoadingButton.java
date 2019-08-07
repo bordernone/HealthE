@@ -14,17 +14,19 @@ import androidx.annotation.StyleableRes;
 import io.coderslab.yourheartbeat.R;
 
 public class CustomLoadingButton extends LinearLayout {
-
-    @StyleableRes
-    int index0 = 0;
-    @StyleableRes
-    int index1 = 1;
-
-    Button button;
-    ProgressBar progressBar;
+    // ToDo: add ability to set different backgrounds
+    // ToDo: add ability to make the text non-capitalized for the buttons
+    private Button button;
+    private ProgressBar progressBar;
 
     private Boolean loading;
     private CharSequence title;
+
+    public interface ButtonClickListener {
+        void onButtonClickListener();
+    }
+
+    private ButtonClickListener buttonClickListener;
 
     public CustomLoadingButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -57,14 +59,22 @@ public class CustomLoadingButton extends LinearLayout {
             // for reuse
             typedArray.recycle();
         }
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (buttonClickListener != null) {
+                    buttonClickListener.onButtonClickListener();
+                }
+            }
+        });
     }
 
     private void initComponents() {
+        // referencing components
         button = (Button) findViewById(R.id.customLoadingBtn);
-
         progressBar = (ProgressBar) findViewById(R.id.customLoadingBtnProgressBar);
     }
-
 
     public void setButtonTitle(CharSequence value) {
         button.setText(value);
@@ -80,5 +90,9 @@ public class CustomLoadingButton extends LinearLayout {
             button.setTextScaleX(1); // make button text visible
             button.setClickable(true);
         }
+    }
+
+    public void setButtonClickListener(ButtonClickListener onLoadingClickListener) {
+        buttonClickListener = onLoadingClickListener;
     }
 }

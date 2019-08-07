@@ -21,6 +21,7 @@ public class VerificationSuccess extends AppCompatActivity {
         // if user is already logged in, take them to Dashboard
         if (User.isUserLoggedIn()){
             utils.moveToActivity(VerificationSuccess.this, Dashboard.class);
+            finish();
         }
 
         // reference components
@@ -31,6 +32,7 @@ public class VerificationSuccess extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 utils.moveToActivity(VerificationSuccess.this, Dashboard.class);
+                finish();
             }
         });
 
