@@ -80,20 +80,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mainlogo2" />
 
-                <Button
+                <CustomComponents.CustomLoadingButton
                     android:id="@+id/verifyBtn"
-                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/btn_fill_color_primary"
-                    android:text="Continue!"
-                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/verificationCodeEditText"
                     app:layout_constraintStart_toStartOf="@+id/verificationCodeEditText"
-                    app:layout_constraintTop_toBottomOf="@+id/verificationCodeEditText" />
+                    app:layout_constraintTop_toBottomOf="@+id/verificationCodeEditText"
+                    app:title="Verify"
+                    app:isLoading="false"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

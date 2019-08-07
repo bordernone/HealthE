@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import CustomComponents.CustomLoadingButton;
 import Utilities.User;
 import Utilities.utils;
 
@@ -39,7 +40,7 @@ public class VerifyMobile extends AppCompatActivity {
     private EditText verificationCodeInputField;
 
     // Buttons
-    private Button verifyButton;
+    private CustomLoadingButton verifyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +48,20 @@ public class VerifyMobile extends AppCompatActivity {
         setContentView(R.layout.activity_verify_mobile);
 
         // if user is already logged in, take them to Dashboard
-        if (User.isUserLoggedIn()){
-            utils.moveToActivity(VerifyMobile.this, Dashboard.class);
-        }
+//        if (User.isUserLoggedIn()){
+//            utils.moveToActivity(VerifyMobile.this, Dashboard.class);
+//        }
 
         // Get Firebase auth instance
         mAuth = FirebaseAuth.getInstance();
 
         // referencing components
         verificationCodeInputField = (EditText) findViewById(R.id.verificationCodeEditText);
-        verifyButton = (Button) findViewById(R.id.verifyBtn);
+        verifyButton = (CustomLoadingButton) findViewById(R.id.verifyBtn);
+        verifyButton.setLoadingState(true);
 
         if (setValuesPhoneNumberBloodGroup(savedInstanceState) == true) {
-            sendVerificationCode(phoneNumber);
+            //sendVerificationCode(phoneNumber);
         } else {
             utils.alertError("Something went wrong. Please try again.", VerifyMobile.this);
             utils.moveToActivity(VerifyMobile.this, MainActivity.class);

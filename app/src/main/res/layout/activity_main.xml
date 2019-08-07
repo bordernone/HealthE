@@ -178,4 +178,5 @@
             app:layout_constraintTop_toTopOf="@+id/register_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

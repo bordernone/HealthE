@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import CustomComponents.CustomLoadingButton;
 import Utilities.User;
 import Utilities.utils;
 
@@ -50,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // if user is already logged in, take them to Dashboard
-        if (User.isUserLoggedIn()){
-            utils.moveToActivity(MainActivity.this, Dashboard.class);
-        }
+//        if (User.isUserLoggedIn()){
+//            utils.moveToActivity(MainActivity.this, Dashboard.class);
+//        }
 
         // Reference components
         phoneInputField = (EditText) findViewById(R.id.phoneInputField);
