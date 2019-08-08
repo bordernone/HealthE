@@ -28,38 +28,5 @@ public class RequestDonation extends AppCompatActivity {
 
         registerWrapper = (ConstraintLayout) findViewById(R.id.registerformbg);
 
-        setOnRegisterWrapperTouchEvent();
-    }
-
-    protected void onStop(){
-        super.onStop();
-        registerWrapper.setOnTouchListener(null);
-    }
-
-    protected void onDestroy(){
-        super.onDestroy();
-        registerWrapper.setOnTouchListener(null);
-    }
-
-    public void setElevation(View v, int units){
-        int apiLevel = Build.VERSION.SDK_INT;
-        if (apiLevel >= 21){
-            v.setElevation(units);
-        }
-    }
-
-    private void setOnRegisterWrapperTouchEvent(){
-        registerWrapper.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (MotionEvent.ACTION_DOWN == event.getAction()){
-                    setElevation(v, 0);
-                }
-                if (MotionEvent.ACTION_UP == event.getAction()){
-                    setElevation(v, 12);
-                }
-                return true;
-            }
-        });
     }
 }

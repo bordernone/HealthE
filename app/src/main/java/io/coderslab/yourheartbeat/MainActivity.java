@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import Utilities.User;
@@ -29,16 +28,11 @@ public class MainActivity extends AppCompatActivity {
     // Layouts
     private ConstraintLayout registerWrapper;
 
-    // ProgressBars
-    private ProgressBar registerBtnProgressBar;
-    private Boolean isRegisterBtnProgressBarVisible = false;
-
     // Buttons
     private Button requestDonationBtn;
     private Button registerBtn;
 
     // helpers and data
-    private Boolean isLoading = false;
     private String[] bloodGrpList;
 
     @Override
@@ -55,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         // Reference components
         phoneInputField = (EditText) findViewById(R.id.phoneInputField);
         bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp);
-        registerBtnProgressBar = (ProgressBar) findViewById(R.id.registerBtnProgressBar);
 
         // Populate blood group list
         bloodGrpList = getResources().getStringArray(R.array.blood_grp_array_reg);

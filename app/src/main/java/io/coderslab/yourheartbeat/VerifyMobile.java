@@ -48,6 +48,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
         // if user is already logged in, take them to Dashboard
         if (User.isUserLoggedIn()){
             utils.moveToActivity(VerifyMobile.this, Dashboard.class);
+            finish();
         }
 
         // Get Firebase auth instance
@@ -70,7 +71,6 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
     }
 
     private void handleVerifyBtnClick() {
-        utils.logError("Unable", className);
         verifyButton.setLoadingState(true);
         try {
             verificationCode = verificationCodeInputField.getText().toString();

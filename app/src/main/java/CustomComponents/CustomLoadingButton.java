@@ -19,7 +19,7 @@ public class CustomLoadingButton extends LinearLayout {
     private Button button;
     private ProgressBar progressBar;
 
-    private Boolean loading;
+    private Boolean loading = false;
     private CharSequence title;
 
     public interface ButtonClickListener {
