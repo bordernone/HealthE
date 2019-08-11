@@ -1,16 +1,12 @@
 package io.coderslab.yourheartbeat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import CustomComponents.CustomLoadingButton;
-import Utilities.User;
-import Utilities.utils;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +20,11 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class VerifyMobile extends AppCompatActivity implements CustomLoadingButton.ButtonClickListener {
+import CustomComponents.CustomLoadingButton;
+import Utilities.User;
+import Utilities.utils;
+
+public class VerifyMobile extends AppCompatActivity implements CustomLoadingButton.ButtonClickListener{
     private final String className = "VerifyMobile.class";
 
     // variables
@@ -46,7 +46,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
         setContentView(R.layout.activity_verify_mobile);
 
         // if user is already logged in, take them to Dashboard
-        if (User.isUserLoggedIn()){
+        if (User.isUserLoggedIn()) {
             utils.moveToActivity(VerifyMobile.this, Dashboard.class);
             finish();
         }
@@ -83,29 +83,18 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
     }
 
     private boolean setValuesPhoneNumberBloodGroup(Bundle savedInstanceState) {
-        Boolean valuesSet = true;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                valuesSet = false;
+                return false;
             } else {
                 // get the values
                 phoneNumber = extras.getString("phoneNumber");
-                Boolean temp = false;
                 try {
                     bloodGroupId = Integer.valueOf(extras.getString("bloodGroupId"));
-                    temp = true;
                 } catch (Exception e) {
-                    // produce error or return to main activity
-                    valuesSet = false;
                     utils.logInfo("1. Can't get integer value of blood group id: " + extras.getString("bloodGroupId"), className);
-                }
-                if (temp) {
-                    if (utils.isNumberValid(phoneNumber) != true || User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this) == false) {
-                        // produce error or return to main activity
-                        valuesSet = false;
-                        utils.logInfo("2. Can't get integer value of blood group id: " + extras.getString("bloodGroupId"), className);
-                    }
+                    return false;
                 }
             }
         } else {
@@ -116,12 +105,16 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
                 temp = (String) savedInstanceState.getSerializable("bloodGroupId");
                 bloodGroupId = Integer.valueOf((String) savedInstanceState.getSerializable("bloodGroupId"));
             } catch (Exception e) {
-                // produce error or return to main activity
-                valuesSet = false;
                 utils.logInfo("3. Can't get integer value of blood group id: " + temp, className);
+                return false;
             }
         }
-        return valuesSet;
+        if (User.isNumberValid(phoneNumber) == false || User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this) == false) {
+            utils.logInfo("2. Something went wrong. phoneNumber: " + phoneNumber + " bloodGroupId: " + bloodGroupId, className);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private void sendVerificationCode(String phoneNumber) {
@@ -176,10 +169,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent verifySuccess = new Intent(VerifyMobile.this, VerificationSuccess.class);
-                            verifySuccess.putExtra("bloodGroupId", String.valueOf(bloodGroupId));
-                            verifySuccess.putExtra("phoneNumber", phoneNumber);
-                            startActivity(verifySuccess);
+                            saveToDatabase();
                         } else {
                             //verification unsuccessful.. display an error message
                             String message = "Something is wrong, we will fix it soon.";
@@ -196,5 +186,23 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
     @Override
     public void onButtonClickListener() {
         handleVerifyBtnClick();
+    }
+
+    public void saveToDatabase(){
+        utils.logInfo("Success", className);
+
+        // Save to database
+        try {
+            User user = new User(phoneNumber, bloodGroupId, VerifyMobile.this);
+            user.saveBloodGroup(VerifyMobile.this);
+
+            // Get user's location
+            Intent getLocation = new Intent(VerifyMobile.this, GetLocation.class);
+            startActivity(getLocation);
+            finish();
+        } catch (Exception e) {
+            utils.alertError("Something went wrong", VerifyMobile.this);
+            utils.logError(e.getMessage(), className);
+        }
     }
 }

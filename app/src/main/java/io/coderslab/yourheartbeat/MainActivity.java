@@ -1,9 +1,5 @@
 package io.coderslab.yourheartbeat;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +7,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import Utilities.User;
 import Utilities.utils;
@@ -24,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
     // input fields
     private Spinner bloodGrpSpinner;
     private EditText phoneInputField;
-
-    // Layouts
-    private ConstraintLayout registerWrapper;
 
     // Buttons
     private Button requestDonationBtn;
@@ -57,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_grp_array_reg, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bloodGrpSpinner.setAdapter(adapter);
-
-        // Animation for the container
-        registerWrapper = (ConstraintLayout) findViewById(R.id.registerformbg);
 
         // Request donation button
         requestDonationBtn = (Button) findViewById(R.id.registerReqDonationBtn);
@@ -93,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("Okay",null);
             alertDialog.show();
         } else {
-            if (utils.isNumberValid(phoneNumber)){
+            if (User.isNumberValid(phoneNumber)){
                 // Everything is OK; Move to registration
 
                 Intent verifyMobile = new Intent(MainActivity.this, VerifyMobile.class);

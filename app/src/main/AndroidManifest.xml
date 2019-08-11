@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.coderslab.yourheartbeat">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".VerificationSuccess"></activity>
+        <activity android:name=".GetLocation"></activity>
+        <activity android:name=".VerificationSuccess" />
         <activity android:name=".VerifyMobile" />
         <activity android:name=".Dashboard" />
         <activity android:name=".RequestDonation" />

@@ -1,18 +1,13 @@
 package io.coderslab.yourheartbeat;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.concurrent.TimeUnit;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import Utilities.User;
 import Utilities.utils;
 
 public class VerificationSuccess extends AppCompatActivity {
