@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        android:background="@color/colorSchemeGainsboro"
+        android:background="@color/colorSchemePrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,16 +25,16 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintContainer"
                 android:layout_width="0dp"
-                android:layout_height="281dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:transitionName="dashboardToEditUserTransition"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/rounded_corner_color_primary"
-                android:elevation="12dp"
-                android:translationZ="0dp"
+                android:transitionName="dashboardToEditUserTransition"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/mainWrapper"
                 app:layout_constraintStart_toStartOf="@+id/mainWrapper"
                 app:layout_constraintTop_toTopOf="@+id/mainWrapper">
@@ -85,22 +85,22 @@
                     app:layout_constraintTop_toTopOf="@+id/constraintLayoutShowBloodGrp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="18dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/constraintLayoutShowBloodGrp"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayoutShowBloodGrp">
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -167,21 +167,61 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Activities"
-                android:textColor="@color/colorSchemeGray"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/constraintContainer"
-                app:layout_constraintTop_toBottomOf="@+id/constraintContainer" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/const_layout_bld_grp"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayoutShowBloodGrp"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                    <RelativeLayout
+                        android:id="@+id/relative_layout_bld_grp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/editTextBldGrpPseudo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/inputfield"
+                            android:clickable="false"
+                            android:drawableLeft="@drawable/ic_group_colorprimary_24dp"
+                            android:editable="false"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:inputType="phone"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="12dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="12dp" />
+
+                        <Spinner
+                            android:id="@+id/spinner_blood_grp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="38dp" />
+
+
+                    </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <CustomComponents.CustomLoadingButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="@+id/const_layout_bld_grp"
+                    app:layout_constraintStart_toStartOf="@+id/const_layout_bld_grp"
+                    app:layout_constraintTop_toBottomOf="@+id/const_layout_bld_grp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

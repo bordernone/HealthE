@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".GetLocation"></activity>
+        <activity android:name=".EditUserProfile"></activity>
+        <activity android:name=".GetLocation" />
         <activity android:name=".VerificationSuccess" />
         <activity android:name=".VerifyMobile" />
         <activity android:name=".Dashboard" />
