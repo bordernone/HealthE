@@ -5,10 +5,14 @@ import android.location.Location;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.SetOptions;
@@ -29,12 +33,77 @@ public class User {
     private String firebaseUserId;
     private FirebaseUser firebaseUser;
 
+    // Interface
+    public interface FetchUserData{
+        void remoteUserFetchSuccess();
+    }
+    private FetchUserData fetchUserDataListener;
+
+    public void setFetchUserDataListener(FetchUserData listenert){
+        fetchUserDataListener = listenert;
+    }
+
+    // Constructors
     public User(String number, Integer id, Context _this) throws Exception {
         setPhoneNumber(number);
         setBloodGroupId(id, _this);
     }
 
-    public User(){}
+    public User() {
+    }
+
+    public void fetchFromRemote() throws Exception {
+        if (isUserLoggedIn()) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            final DocumentReference docRef = db.collection("Users")
+                    .document(getFirebaseUserId());
+
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // Get location
+                            if (document.contains("Location")){
+                                GeoPoint geoPoint = document.getGeoPoint("Location");
+                                Location fetchedLocation = new Location("");
+                                fetchedLocation.setLatitude(geoPoint.getLatitude());
+                                fetchedLocation.setLongitude(geoPoint.getLongitude());
+                                location = fetchedLocation;
+                            } else {
+                                utils.logError("No location key", className);
+                            }
+
+                            // Get blood group
+                            if (document.contains("BloodGroup")){
+                                bloodGroup = document.get("BloodGroup").toString();
+                            } else {
+                                utils.logError("BloodGroup field not found in remote", className);
+                            }
+
+                            // Get phone number
+                            if (getFirebaseUser().getPhoneNumber().length() > 0){
+                                phoneNumber = getFirebaseUser().getPhoneNumber();
+                            } else {
+                                utils.logError("cannot retrieve phone number", className);
+                            }
+
+                            fetchUserDataListener.remoteUserFetchSuccess();
+                        } else {
+                            utils.logInfo("No such document", className);
+                        }
+                    } else {
+                        utils.logError("Fetch failed with " + task.getException(), className);
+                    }
+                }
+            });
+        } else {
+            utils.logError("Fetching from remote when user isn't logged in", className);
+            throw new Exception("Trying to fetch from remote when user isn't logged in");
+        }
+    }
 
     public void setPhoneNumber(String number) {
         phoneNumber = number;
@@ -55,11 +124,11 @@ public class User {
         bloodGroup = bloodGrpArray[bloodGroupId];
     }
 
-    public void setLocation(Location l){
+    public void setLocation(Location l) {
         location = l;
     }
 
-    public Location getLocation(){
+    public Location getLocation() {
         return location;
     }
 
@@ -71,18 +140,28 @@ public class User {
         return bloodGroup;
     }
 
+    public String getFirebaseUserId() {
+        if (firebaseUserId == null || firebaseUserId.length() <= 0) {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            firebaseUserId = firebaseUser.getUid();
+        }
+        return firebaseUserId;
+    }
+
+    public FirebaseUser getFirebaseUser(){
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        return firebaseUser;
+    }
+
     public void saveBloodGroup(Context _this) throws Exception {
         if (isValidBloodGrpId(bloodGroupId, _this)) {
-            if (isUserLoggedIn()){
-                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                firebaseUserId = firebaseUser.getUid();
-
+            if (isUserLoggedIn()) {
                 Map<String, String> user = new HashMap<>();
                 user.put("BloodGroup", getBloodGroup());
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("Users")
-                        .document(firebaseUserId)
+                        .document(getFirebaseUserId())
                         .set(user, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -106,8 +185,8 @@ public class User {
         }
     }
 
-    public void saveGeoLocation() throws Exception{
-        if (getLocation() != null){
+    public void saveGeoLocation() throws Exception {
+        if (getLocation() != null) {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             firebaseUserId = firebaseUser.getUid();
             GeoPoint userLocation = new GeoPoint(getLocation().getLatitude(), getLocation().getLongitude());

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Your HeartBeat</string>
+    <string name="phone_input_hint">तपाई को फोन नुम्बेर</string>
+    <string name="getting_your_location">तपाई को ठेकाना...</string>
+</resources>

@@ -189,7 +189,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
     }
 
     public void saveToDatabase(){
-        utils.logInfo("Success", className);
+        utils.logInfo("Successful user verification. Saving to firestore database...", className);
 
         // Save to database
         try {
