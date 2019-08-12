@@ -24,6 +24,9 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
     private User currentUser = new User();
 
     private ConstraintLayout constraintLayoutContainer;
+
+    private static final int EDIT_USER_ACTIVITY_REQUEST_CODE = 23523;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(Dashboard.this, constraintLayoutContainer, ViewCompat.getTransitionName(constraintLayoutContainer));
-                startActivity(intent, options.toBundle());
+                startActivityForResult(intent, EDIT_USER_ACTIVITY_REQUEST_CODE, options.toBundle());
             }
         });
 
@@ -51,6 +54,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
             try {
                 currentUser.fetchFromRemote();
             } catch (Exception e) {
+                utils.logError(e.getMessage(), className);
                 e.printStackTrace();
             }
         } else {
@@ -59,6 +63,20 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
             finish();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultcode, Intent data){
+        if (requestCode == EDIT_USER_ACTIVITY_REQUEST_CODE){
+            utils.logInfo("Got it", className);
+            try {
+                currentUser.fetchFromRemote();
+            } catch (Exception e) {
+                utils.logError(e.getMessage(), className);
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     @Override
     public void remoteUserFetchSuccess() {

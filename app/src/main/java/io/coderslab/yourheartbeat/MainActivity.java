@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleRegisterBtnClick(){
         phoneNumber = phoneInputField.getText().toString().replaceAll("[^0-9+]", "");
-        utils.logInfo("Phone Number: " + phoneNumber, "MainActivity.java");
         bloodGroupId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
 
         if (!User.isValidBloodGrpId(bloodGroupId, MainActivity.this)){
