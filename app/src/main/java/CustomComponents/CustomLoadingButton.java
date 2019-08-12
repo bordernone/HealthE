@@ -2,19 +2,16 @@ package CustomComponents;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import androidx.annotation.StyleableRes;
-
 import io.coderslab.yourheartbeat.R;
 
 public class CustomLoadingButton extends LinearLayout {
-    // ToDo: add ability to set different backgrounds
     // ToDo: add ability to make the text non-capitalized for the buttons
     private Button button;
     private ProgressBar progressBar;
@@ -90,6 +87,10 @@ public class CustomLoadingButton extends LinearLayout {
             button.setTextScaleX(1); // make button text visible
             button.setClickable(true);
         }
+    }
+
+    public void setButtonDisplayDrawable(Drawable drawable){
+        button.setBackground(drawable);
     }
 
     public void setButtonClickListener(ButtonClickListener onLoadingClickListener) {
