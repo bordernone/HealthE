@@ -72,7 +72,7 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginBottom="8dp"
                         android:fontFamily="@font/montserrat_bold"
-                        android:text="A+"
+                        android:text="#"
                         android:textColor="@color/colorSchemePrimary"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -140,7 +140,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:text="+977-9814751978"
+                                android:text="Loading..."
                                 android:textColor="@color/colorSchemeGainsboro"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -163,13 +163,13 @@
                                 app:srcCompat="@drawable/ic_location_on_color_gainsboro_24dp" />
 
                             <TextView
-                                android:id="@+id/textView5"
+                                android:id="@+id/dashboardUserLocationTextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:text="Kathmandu, Nepal"
+                                android:text="Loading..."
                                 android:textColor="@color/colorSchemeGainsboro"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"

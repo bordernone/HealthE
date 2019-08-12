@@ -68,7 +68,7 @@
                     android:drawablePadding="4dp"
                     android:ems="10"
                     android:hint="Verification Code"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:paddingLeft="8dp"
                     android:paddingTop="12dp"
                     android:paddingRight="8dp"

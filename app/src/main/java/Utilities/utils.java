@@ -12,6 +12,7 @@ public class utils {
         // Alert dialog
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(_this);
         alertDialog.setTitle("Error");
+        alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
         alertDialog.setMessage(errorMsg);
         alertDialog.setPositiveButton("Okay", null);
         alertDialog.show();
@@ -21,6 +22,7 @@ public class utils {
         // Alert dialog
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(_this);
         alertDialog.setTitle("Info");
+        alertDialog.setIcon(android.R.drawable.ic_dialog_info);
         alertDialog.setMessage(message);
         alertDialog.setPositiveButton("Okay", null);
         alertDialog.show();

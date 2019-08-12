@@ -1,17 +1,9 @@
 package io.coderslab.yourheartbeat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.appcompat.app.AppCompatActivity;
 
 import Utilities.User;
 import Utilities.utils;
@@ -22,6 +14,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
 
     private TextView phoneNumberTextView;
     private TextView bloodGroupTextView;
+    private TextView userLocationTextView;
 
     private User currentUser = new User();
 
@@ -34,12 +27,10 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
         // Reference components
         phoneNumberTextView = (TextView) findViewById(R.id.dashboardPhoneNumberTextView);
         bloodGroupTextView = (TextView) findViewById(R.id.dashboardBloodGroupTextView);
-
+        userLocationTextView = (TextView) findViewById(R.id.dashboardUserLocationTextView);
 
 
         if (User.isUserLoggedIn()) {
-            utils.alertInfo("Logged in", this);
-
             currentUser.setFetchUserDataListener(this);
             // Fetch user data from remote
             try {
@@ -48,7 +39,9 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
                 e.printStackTrace();
             }
         } else {
-            utils.alertError("Not logged in", this);
+            utils.alertError("You're not logged in", this);
+            utils.moveToActivity(getApplicationContext(), MainActivity.class);
+            finish();
         }
     }
 
@@ -56,6 +49,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
     public void remoteUserFetchSuccess() {
         updateBloodGroupView(currentUser.getBloodGroup());
         updatePhoneNumberView(currentUser.getPhoneNumber());
+        updateUserLocationView(currentUser.getUserLocality(Dashboard.this) + ", " + currentUser.getUserCountryName(Dashboard.this));
     }
 
     private void updatePhoneNumberView(String number){
@@ -64,5 +58,9 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
 
     private void updateBloodGroupView(String bloodgrp){
         bloodGroupTextView.setText(bloodgrp);
+    }
+
+    private void updateUserLocationView(String userLocationString){
+        userLocationTextView.setText(userLocationString);
     }
 }

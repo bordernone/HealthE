@@ -58,7 +58,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
         verificationCodeInputField = (EditText) findViewById(R.id.verificationCodeEditText);
         verifyButton = (CustomLoadingButton) findViewById(R.id.verifyBtn);
 
-        if (setValuesPhoneNumberBloodGroup(savedInstanceState) == true) {
+        if (setValuesPhoneNumberBloodGroup(savedInstanceState)) {
             sendVerificationCode(phoneNumber);
         } else {
             utils.alertError("Something went wrong. Please try again.", VerifyMobile.this);
@@ -109,7 +109,8 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
                 return false;
             }
         }
-        if (User.isNumberValid(phoneNumber) == false || User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this) == false) {
+        if (!User.isNumberValid(phoneNumber) || !User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this)) {
+            utils.logError("Validation failed. Check log below", className);
             utils.logInfo("2. Something went wrong. phoneNumber: " + phoneNumber + " bloodGroupId: " + bloodGroupId, className);
             return false;
         } else {
@@ -119,7 +120,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
 
     private void sendVerificationCode(String phoneNumber) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+977" + phoneNumber,
+                phoneNumber,
                 60,
                 TimeUnit.SECONDS,
                 TaskExecutors.MAIN_THREAD,
@@ -138,11 +139,15 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
                 verificationCodeInputField.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);
+            } else {
+                utils.logError("Verification code is null. Need to enter code manually", className);
             }
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
+            utils.logError("Verification failed. Check log below", className);
+            utils.logError(e.getMessage(), className);
             Toast.makeText(VerifyMobile.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 

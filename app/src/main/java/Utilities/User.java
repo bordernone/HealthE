@@ -1,6 +1,8 @@
 package Utilities;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
@@ -17,8 +19,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.SetOptions;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.coderslab.yourheartbeat.R;
 
@@ -33,13 +40,17 @@ public class User {
     private String firebaseUserId;
     private FirebaseUser firebaseUser;
 
+    private String userLocality;
+    private String userCountryName;
+
     // Interface
-    public interface FetchUserData{
+    public interface FetchUserData {
         void remoteUserFetchSuccess();
     }
+
     private FetchUserData fetchUserDataListener;
 
-    public void setFetchUserDataListener(FetchUserData listenert){
+    public void setFetchUserDataListener(FetchUserData listenert) {
         fetchUserDataListener = listenert;
     }
 
@@ -66,7 +77,7 @@ public class User {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             // Get location
-                            if (document.contains("Location")){
+                            if (document.contains("Location")) {
                                 GeoPoint geoPoint = document.getGeoPoint("Location");
                                 Location fetchedLocation = new Location("");
                                 fetchedLocation.setLatitude(geoPoint.getLatitude());
@@ -77,14 +88,14 @@ public class User {
                             }
 
                             // Get blood group
-                            if (document.contains("BloodGroup")){
+                            if (document.contains("BloodGroup")) {
                                 bloodGroup = document.get("BloodGroup").toString();
                             } else {
                                 utils.logError("BloodGroup field not found in remote", className);
                             }
 
                             // Get phone number
-                            if (getFirebaseUser().getPhoneNumber().length() > 0){
+                            if (getFirebaseUser().getPhoneNumber().length() > 0) {
                                 phoneNumber = getFirebaseUser().getPhoneNumber();
                             } else {
                                 utils.logError("cannot retrieve phone number", className);
@@ -110,7 +121,7 @@ public class User {
     }
 
     public void setBloodGroupId(Integer id, Context _this) throws Exception {
-        if (isValidBloodGrpId(id, _this) == true) {
+        if (isValidBloodGrpId(id, _this)) {
             bloodGroupId = id;
             setBloodGroup(_this);
         } else {
@@ -133,7 +144,7 @@ public class User {
     }
 
     public String getPhoneNumber() {
-        return getCountryCode() + phoneNumber;
+        return phoneNumber;
     }
 
     public String getBloodGroup() {
@@ -148,9 +159,53 @@ public class User {
         return firebaseUserId;
     }
 
-    public FirebaseUser getFirebaseUser(){
+    public FirebaseUser getFirebaseUser() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         return firebaseUser;
+    }
+
+    public String getUserLocality(Context _this){
+        if (getLocation() == null){
+            return "Unknown";
+        }
+        if (userLocality == null){
+            try {
+                Geocoder geocoder = new Geocoder(_this, Locale.getDefault());
+                List<Address> addresses = geocoder.getFromLocation(getLocation().getLatitude(), getLocation().getLongitude(), 1);
+                if (addresses.size() > 0) {
+                    Address address = addresses.get(0);
+
+                    userLocality = address.getLocality();
+                    userCountryName = address.getCountryName();
+                }
+            } catch (IOException e) {
+                utils.logError(e.getMessage(), className);
+            }
+        }
+
+        return userLocality;
+    }
+
+    public String getUserCountryName(Context _this){
+        if (getLocation() == null){
+            return "Unknown";
+        }
+        if (userCountryName == null){
+            try {
+                Geocoder geocoder = new Geocoder(_this, Locale.getDefault());
+                List<Address> addresses = geocoder.getFromLocation(getLocation().getLatitude(), getLocation().getLongitude(), 1);
+                if (addresses.size() > 0) {
+                    Address address = addresses.get(0);
+
+                    userLocality = address.getLocality();
+                    userCountryName = address.getCountryName();
+                }
+            } catch (IOException e) {
+                utils.logError(e.getMessage(), className);
+            }
+        }
+
+        return  userCountryName;
     }
 
     public void saveBloodGroup(Context _this) throws Exception {
@@ -187,28 +242,32 @@ public class User {
 
     public void saveGeoLocation() throws Exception {
         if (getLocation() != null) {
-            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            firebaseUserId = firebaseUser.getUid();
-            GeoPoint userLocation = new GeoPoint(getLocation().getLatitude(), getLocation().getLongitude());
-            Map<String, GeoPoint> user = new HashMap<>();
-            user.put("Location", userLocation);
+            if (!isUserLoggedIn()) {
+                utils.logError("trying to save geo location when user isn't logged in", className);
+            } else {
+                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                firebaseUserId = firebaseUser.getUid();
+                GeoPoint userLocation = new GeoPoint(getLocation().getLatitude(), getLocation().getLongitude());
+                Map<String, GeoPoint> user = new HashMap<>();
+                user.put("Location", userLocation);
 
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("Users")
-                    .document(firebaseUserId)
-                    .set(user, SetOptions.merge())
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            utils.logInfo("DocumentSnapshot successfully written!", className);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            utils.logError("Error writing document" + e.getMessage(), className);
-                        }
-                    });
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("Users")
+                        .document(firebaseUserId)
+                        .set(user, SetOptions.merge())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                utils.logInfo("DocumentSnapshot successfully written!", className);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                utils.logError("Error writing document" + e.getMessage(), className);
+                            }
+                        });
+            }
         } else {
             throw new Exception("Cannot save a null location");
         }
@@ -239,17 +298,15 @@ public class User {
 
     public static boolean isNumberValid(String number) {
         Boolean isValid = true;
-        if (!number.matches("^(?=(?:[8-9]){1})(?=[0-9]{9}).*")) {
-            isValid = false;
-        } else {
-            if (number.length() != 10) {
-                isValid = false;
-            }
-        }
-        return isValid;
-    }
 
-    public String getCountryCode() {
-        return "+977";
+        String regex = "^\\+(?:[0-9]-?){6,14}[0-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(number);
+
+        if (!matcher.matches()) {
+            isValid = false;
+        }
+
+        return isValid;
     }
 }
