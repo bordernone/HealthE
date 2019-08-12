@@ -18,6 +18,7 @@ public class CustomLoadingButton extends LinearLayout {
 
     private Boolean loading = false;
     private CharSequence title;
+    private Drawable btnBackground;
 
     public interface ButtonClickListener {
         void onButtonClickListener();
@@ -50,6 +51,9 @@ public class CustomLoadingButton extends LinearLayout {
                 } else if (attr == R.styleable.CustomLoadingButton_isLoading) {
                     loading = typedArray.getBoolean(attr, false);
                     setLoadingState(loading);
+                } else if (attr == R.styleable.CustomLoadingButton_background) {
+                    btnBackground = typedArray.getDrawable(attr);
+                    setButtonBackground(btnBackground);
                 }
             }
         } finally {
@@ -89,7 +93,7 @@ public class CustomLoadingButton extends LinearLayout {
         }
     }
 
-    public void setButtonDisplayDrawable(Drawable drawable){
+    public void setButtonBackground(Drawable drawable){
         button.setBackground(drawable);
     }
 
