@@ -1,10 +1,12 @@
 package io.coderslab.yourheartbeat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
@@ -58,9 +60,18 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
                 e.printStackTrace();
             }
         } else {
-            utils.alertError("You're not logged in", this);
-            utils.moveToActivity(getApplicationContext(), MainActivity.class);
-            finish();
+            AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
+                    .setTitle("Login required")
+                    .setMessage("You must be logged in to access this page.")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            utils.moveToActivity(getApplicationContext(), MainActivity.class);
+                            finish();
+                        }
+                    })
+                    .show();
         }
     }
 

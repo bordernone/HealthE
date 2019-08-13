@@ -106,7 +106,6 @@ public class GetLocation extends AppCompatActivity {
                 } else {
                     // permission denied
                     utils.logError("Requested permission not granted", className);
-                    showAlertLocationError("Location permission was denied!");
                 }
                 return;
             }

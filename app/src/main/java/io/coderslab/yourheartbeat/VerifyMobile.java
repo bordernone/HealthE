@@ -1,11 +1,13 @@
 package io.coderslab.yourheartbeat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,9 +63,17 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
         if (setValuesPhoneNumberBloodGroup(savedInstanceState)) {
             sendVerificationCode(phoneNumber);
         } else {
-            utils.alertError("Something went wrong. Please try again.", VerifyMobile.this);
-            utils.moveToActivity(VerifyMobile.this, MainActivity.class);
-            utils.logError("4. Can't retrieve phone number or blood group", className);
+            AlertDialog alertDialog = new AlertDialog.Builder(VerifyMobile.this)
+                    .setTitle("Error")
+                    .setMessage("Something went wrong. Please try again")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            utils.logError("4. Can't retrieve phone number or blood group", className);
+                            utils.moveToActivity(VerifyMobile.this, MainActivity.class);
+                        }
+                    })
+                    .show();
         }
 
         // handle button click
