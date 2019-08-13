@@ -10,8 +10,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
         android:background="@color/colorSchemeGainsboro"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,20 +20,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainWrapper"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintContainer"
                 android:layout_width="0dp"
-                android:layout_height="281dp"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
-                android:transitionName="dashboardToEditUserTransition"
                 android:background="@drawable/rounded_corner_color_primary"
                 android:elevation="12dp"
+                android:transitionName="dashboardToEditUserTransition"
                 android:translationZ="0dp"
                 app:layout_constraintEnd_toEndOf="@+id/mainWrapper"
                 app:layout_constraintStart_toStartOf="@+id/mainWrapper"
@@ -182,6 +183,58 @@
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/constraintContainer"
                 app:layout_constraintTop_toBottomOf="@+id/constraintContainer" />
+
+            <ScrollView
+                android:id="@+id/scrollView3"
+                android:scrollbars="none"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <CustomComponents.CustomUserActivityItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </CustomComponents.CustomUserActivityItem>
+
+                    <CustomComponents.CustomUserActivityItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </CustomComponents.CustomUserActivityItem>
+
+                    <CustomComponents.CustomUserActivityItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <CustomComponents.CustomUserActivityItem
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    </CustomComponents.CustomUserActivityItem>
+
+                    <CustomComponents.CustomUserActivityItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </CustomComponents.CustomUserActivityItem>
+
+                    <CustomComponents.CustomUserActivityItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
