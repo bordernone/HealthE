@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import androidx.appcompat.app.AlertDialog;
+
+import io.coderslab.yourheartbeat.EditUserProfile;
 
 public class utils {
     public static void alertError(String errorMsg, Context _this) {
@@ -39,5 +42,10 @@ public class utils {
 
     public static void logError(String msg, String className) {
         Log.e("YHB", "(" + className + ") " + msg);
+    }
+
+    public static void simulateBackBtnClick(Activity _this){
+        _this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        _this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
     }
 }

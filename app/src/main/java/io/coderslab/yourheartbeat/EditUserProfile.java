@@ -1,9 +1,11 @@
 package io.coderslab.yourheartbeat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
     private TextView userLocationTextView;
     private Spinner bloodGrpSpinner;
     private Button updateLocationBtn;
+    private ConstraintLayout closeEditUserProfileConstraintLayout;
 
     private CustomLoadingButton updateBloodGrpBtn;
 
@@ -34,7 +37,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_profile);
 
-        if (!User.isUserLoggedIn()){
+        if (!User.isUserLoggedIn()) {
             utils.moveToActivity(getApplicationContext(), MainActivity.class);
             finish();
         }
@@ -45,6 +48,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
         bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp);
         updateLocationBtn = (Button) findViewById(R.id.editUserUpdateLocationBtn);
         updateBloodGrpBtn = (CustomLoadingButton) findViewById(R.id.customLoadingButtonUpdateBloodGrp);
+        closeEditUserProfileConstraintLayout = (ConstraintLayout) findViewById(R.id.closeEditUserProfileConstraintLayout);
 
 
         updateBloodGrpBtn.setButtonClickListener(this);
@@ -52,9 +56,9 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
         currentUser = new User();
         currentUser.setFetchUserDataListener(this);
 
-        try{
+        try {
             currentUser.fetchFromRemote();
-        } catch (Exception e){
+        } catch (Exception e) {
             utils.logError(e.getMessage(), className);
         }
 
@@ -66,10 +70,19 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
 
 
         // Update location
-        updateLocationBtn.setOnClickListener(new View.OnClickListener(){
+        updateLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 utils.moveToActivity(EditUserProfile.this, GetLocation.class);
+            }
+        });
+
+
+        // Close edit activity
+        closeEditUserProfileConstraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                utils.simulateBackBtnClick(EditUserProfile.this);
             }
         });
 
@@ -83,15 +96,15 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
     }
 
 
-    private void updatePhoneNumberView(String number){
+    private void updatePhoneNumberView(String number) {
         phoneNumberTextView.setText(number);
     }
 
-    private void updateBloodGroupView(String bloodgrp){
+    private void updateBloodGroupView(String bloodgrp) {
         bloodGroupTextView.setText(bloodgrp);
     }
 
-    private void updateUserLocationView(String userLocationString){
+    private void updateUserLocationView(String userLocationString) {
         userLocationTextView.setText(userLocationString);
     }
 
@@ -99,7 +112,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
     public void onButtonClickListener() {
         bloodGroupId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
 
-        if (!User.isValidBloodGrpId(bloodGroupId, EditUserProfile.this)){
+        if (!User.isValidBloodGrpId(bloodGroupId, EditUserProfile.this)) {
             utils.alertError("Please select a blood group", EditUserProfile.this);
         } else {
             try {
