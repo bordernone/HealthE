@@ -1,10 +1,14 @@
 package io.coderslab.yourheartbeat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
@@ -98,27 +102,36 @@ public class UserActivities extends Fragment implements User.FetchUserActivities
         if (noException) {
             if (numberOfActivities > 0) {
                 try {
-                    for (int i = 0; i < currentUser.getUserActivities().size(); i++) {
-                        Iterator it = currentUser.getUserActivities().entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pair = (Map.Entry) it.next();
-                            Object temp = pair.getValue();
-                            if (temp instanceof Map) {
-                                try {
-                                    Map thisActivity = (Map) temp;
-                                    CustomUserActivityItem myItem = new CustomUserActivityItem(getContext());
-                                    myItem.setTitle(thisActivity.get("Title").toString());
-                                    myItem.setDescription(thisActivity.get("Description").toString());
-                                    userActivitiesContainer.addView(myItem);
-                                } catch (Exception e) {
-                                    utils.logError(e.getMessage(), className);
-                                }
-                            } else {
-                                utils.logError("Unknown error occured!", className);
+                    Iterator it = currentUser.getUserActivities().entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        Object temp = pair.getValue();
+                        if (temp instanceof Map) {
+                            try {
+                                final Map thisActivity = (Map) temp;
+                                CustomUserActivityItem myItem = new CustomUserActivityItem(getContext());
+                                myItem.setTitle(thisActivity.get("Title").toString());
+                                myItem.setDescription(thisActivity.get("Description").toString());
+                                myItem.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent(getContext(), DisplayUserActivity.class);
+                                        intent.putExtra("title", thisActivity.get("Title").toString());
+                                        intent.putExtra("description", thisActivity.get("Description").toString());
+                                        startActivity(intent);
+                                        (getActivity()).overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+                                    }
+                                });
+                                userActivitiesContainer.addView(myItem);
+                            } catch (Exception e) {
+                                utils.logError(e.getMessage(), className);
                             }
-                            it.remove(); // avoids a ConcurrentModificationException
+                        } else {
+                            utils.logError("Unknown error occured!", className);
                         }
+                        it.remove(); // avoids a ConcurrentModificationException
                     }
+
                 } catch (Exception e) {
                     showNoActivitiesView();
                     utils.logError(e.getMessage(), className);
