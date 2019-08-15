@@ -4,11 +4,23 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.Iterator;
+import java.util.Map;
+
+import CustomComponents.CustomUserActivityItem;
+import Utilities.User;
+import Utilities.utils;
 
 
 /**
@@ -19,15 +31,14 @@ import android.view.ViewGroup;
  * Use the {@link UserActivities#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserActivities extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class UserActivities extends Fragment implements User.FetchUserActivities {
+    private static final String className = "UserActivities.java";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private User currentUser = new User();
+
+    private View myView;
+
+    LinearLayout userActivitiesContainer;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,23 +54,17 @@ public class UserActivities extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment UserActivities.
      */
-    // TODO: Rename and change types and number of parameters
     public static UserActivities newInstance(String param1, String param2) {
         UserActivities fragment = new UserActivities();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        currentUser.setFetchUserActivitiesListener(this);
+        currentUser.fetchAllRemoteActivitiesUser();
     }
 
     @Override
@@ -69,7 +74,74 @@ public class UserActivities extends Fragment {
         return inflater.inflate(R.layout.fragment_user_activities, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    @Override
+    public void onViewCreated(View v, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(v, savedInstanceState);
+        myView = v;
+        // reference elements
+        userActivitiesContainer = myView.findViewById(R.id.fragmentUserActivityContainer);
+
+    }
+
+    private void addElementToUserActivityScrollview() {
+
+        Boolean noException = false;
+        int numberOfActivities = 0;
+        try {
+            numberOfActivities = currentUser.getUserActivities().size();
+            noException = true;
+        } catch (Exception e) {
+            utils.logError(e.getMessage(), className);
+        }
+
+        // Loop through each activities
+        if (noException) {
+            if (numberOfActivities > 0) {
+                try {
+                    for (int i = 0; i < currentUser.getUserActivities().size(); i++) {
+                        Iterator it = currentUser.getUserActivities().entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            Object temp = pair.getValue();
+                            if (temp instanceof Map) {
+                                try {
+                                    Map thisActivity = (Map) temp;
+                                    CustomUserActivityItem myItem = new CustomUserActivityItem(getContext());
+                                    myItem.setTitle(thisActivity.get("Title").toString());
+                                    myItem.setDescription(thisActivity.get("Description").toString());
+                                    userActivitiesContainer.addView(myItem);
+                                } catch (Exception e) {
+                                    utils.logError(e.getMessage(), className);
+                                }
+                            } else {
+                                utils.logError("Unknown error occured!", className);
+                            }
+                            it.remove(); // avoids a ConcurrentModificationException
+                        }
+                    }
+                } catch (Exception e) {
+                    showNoActivitiesView();
+                    utils.logError(e.getMessage(), className);
+                }
+            } else {
+                showNoActivitiesView();
+            }
+        } else {
+            showNoActivitiesView();
+        }
+    }
+
+    private void showNoActivitiesView() {
+        TextView noActivitiesTextView = new TextView(getContext());
+        noActivitiesTextView.setText(R.string.no_recent_activities);
+        noActivitiesTextView.setTextColor(getResources().getColor(R.color.colorSchemeGray));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
+                ((int) LinearLayout.LayoutParams.MATCH_PARENT, (int) LinearLayout.LayoutParams.WRAP_CONTENT);
+        noActivitiesTextView.setLayoutParams(params);
+        noActivitiesTextView.setGravity(Gravity.CENTER);
+        userActivitiesContainer.addView(noActivitiesTextView);
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -91,6 +163,11 @@ public class UserActivities extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void remoteFetchUserActivitiesSuccess() {
+        addElementToUserActivityScrollview();
     }
 
     /**

@@ -298,10 +298,11 @@ public class User {
                     if (document.exists()) {
                         userActivities = document.getData();
 
-                        fetchUserActivitiesListener.remoteFetchUserActivitiesSuccess();
                     } else {
-                        utils.logInfo("No such document", className);
+                        utils.logInfo("No such document in user activities", className);
                     }
+                    fetchUserActivitiesListener.remoteFetchUserActivitiesSuccess();
+
                 } else {
                     utils.logError("Fetch failed with " + task.getException(), className);
                 }

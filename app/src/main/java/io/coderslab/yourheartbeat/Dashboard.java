@@ -42,7 +42,6 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        addElementToUserActivityScrollview();
 
         // Reference components
         phoneNumberTextView = (TextView) findViewById(R.id.editUserPhn);
@@ -61,7 +60,6 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
 
         if (User.isUserLoggedIn()) {
             currentUser.setFetchUserDataListener(this);
-            currentUser.setFetchUserActivitiesListener(this);
             // Fetch user data from remote
             try {
                 currentUser.fetchFromRemote();
@@ -69,7 +67,6 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
                 utils.logError(e.getMessage(), className);
                 e.printStackTrace();
             }
-            currentUser.fetchAllRemoteActivitiesUser();
         } else {
             AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
                     .setTitle("Login required")
@@ -118,41 +115,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
         userLocationTextView.setText(userLocationString);
     }
 
-    private void addElementToUserActivityScrollview() {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.activity_dashboard, null);
 
-        LinearLayout linearLayout = v.findViewById(R.id.userActivityItemLinearLayout);
-
-        // Loop through each activities
-        for (int i = 0; i < currentUser.getUserActivities().size(); i++){
-            Iterator it = currentUser.getUserActivities().entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                Object temp = pair.getValue();
-                if (temp instanceof Map){
-                    try{
-                        Map thisActivity = (Map) temp;
-                        CustomUserActivityItem myItem = new CustomUserActivityItem(Dashboard.this);
-                        myItem.setTitle(thisActivity.get("Title").toString());
-                        myItem.setDescription(thisActivity.get("Description").toString());
-                        linearLayout.addView(myItem);
-                    } catch (Exception e){
-                        utils.logError(e.getMessage(), className);
-                    }
-                } else {
-                    utils.logError("Unknown error occured!", className);
-                }
-                it.remove(); // avoids a ConcurrentModificationException
-            }
-        }
-
-        setContentView(v);
-    }
-
-    @Override
-    public void remoteFetchUserActivitiesSuccess() {
-        addElementToUserActivityScrollview();
     @Override
     public void onFragmentInteraction(Uri uri) {
 

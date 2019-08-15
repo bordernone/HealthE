@@ -3,4 +3,5 @@
     <string name="phone_input_label">तपाई को फोन नुम्बेर</string>
     <string name="phone_input_hint">Eg: +977-9812345678</string>
     <string name="getting_your_location">तपाई को ठेकाना...</string>
+    <string name="no_recent_activities">कुनै भर्खरको गतिविधि छैन</string>
 </resources>
