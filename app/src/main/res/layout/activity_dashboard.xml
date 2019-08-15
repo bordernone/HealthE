@@ -197,11 +197,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-                <LinearLayout
-                    android:id="@+id/userActivityItemLinearLayout"
+                <fragment
+                    android:id="@+id/fragment"
+                    android:name="io.coderslab.yourheartbeat.UserActivities"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"/>
+                    android:layout_height="wrap_content" />
             </ScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
