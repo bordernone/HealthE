@@ -16,6 +16,12 @@ public class CustomUserActivityItem extends LinearLayout {
     private TextView titleTextView;
     private TextView descriptionTextiew;
 
+    public CustomUserActivityItem(Context context){
+        super(context);
+        inflate(context, R.layout.custom_user_activity_item, this);
+        initComponents();
+    }
+
     public CustomUserActivityItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);

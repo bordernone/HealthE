@@ -1,9 +1,12 @@
 package io.coderslab.yourheartbeat;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -12,10 +15,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
+import java.util.Iterator;
+import java.util.Map;
+
+import CustomComponents.CustomUserActivityItem;
 import Utilities.User;
 import Utilities.utils;
 
-public class Dashboard extends AppCompatActivity implements User.FetchUserData{
+public class Dashboard extends AppCompatActivity implements User.FetchUserData, User.FetchUserActivities {
 
     private String className = "Dashboard.java";
 
@@ -34,6 +41,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        addElementToUserActivityScrollview();
 
         // Reference components
         phoneNumberTextView = (TextView) findViewById(R.id.editUserPhn);
@@ -41,7 +49,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
         userLocationTextView = (TextView) findViewById(R.id.editUserLocation);
         constraintLayoutContainer = (ConstraintLayout) findViewById(R.id.constraintContainer);
 
-        constraintLayoutContainer.setOnClickListener(new View.OnClickListener(){
+        constraintLayoutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
@@ -52,6 +60,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
 
         if (User.isUserLoggedIn()) {
             currentUser.setFetchUserDataListener(this);
+            currentUser.setFetchUserActivitiesListener(this);
             // Fetch user data from remote
             try {
                 currentUser.fetchFromRemote();
@@ -59,6 +68,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
                 utils.logError(e.getMessage(), className);
                 e.printStackTrace();
             }
+            currentUser.fetchAllRemoteActivitiesUser();
         } else {
             AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
                     .setTitle("Login required")
@@ -76,9 +86,8 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultcode, Intent data){
-        if (requestCode == EDIT_USER_ACTIVITY_REQUEST_CODE){
-            utils.logInfo("Got it", className);
+    protected void onActivityResult(int requestCode, int resultcode, Intent data) {
+        if (requestCode == EDIT_USER_ACTIVITY_REQUEST_CODE) {
             try {
                 currentUser.fetchFromRemote();
             } catch (Exception e) {
@@ -96,15 +105,52 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
         updateUserLocationView(currentUser.getUserLocality(Dashboard.this) + ", " + currentUser.getUserCountryName(Dashboard.this));
     }
 
-    private void updatePhoneNumberView(String number){
+    private void updatePhoneNumberView(String number) {
         phoneNumberTextView.setText(number);
     }
 
-    private void updateBloodGroupView(String bloodgrp){
+    private void updateBloodGroupView(String bloodgrp) {
         bloodGroupTextView.setText(bloodgrp);
     }
 
-    private void updateUserLocationView(String userLocationString){
+    private void updateUserLocationView(String userLocationString) {
         userLocationTextView.setText(userLocationString);
+    }
+
+    private void addElementToUserActivityScrollview() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.activity_dashboard, null);
+
+        LinearLayout linearLayout = v.findViewById(R.id.userActivityItemLinearLayout);
+
+        // Loop through each activities
+        for (int i = 0; i < currentUser.getUserActivities().size(); i++){
+            Iterator it = currentUser.getUserActivities().entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+                Object temp = pair.getValue();
+                if (temp instanceof Map){
+                    try{
+                        Map thisActivity = (Map) temp;
+                        CustomUserActivityItem myItem = new CustomUserActivityItem(Dashboard.this);
+                        myItem.setTitle(thisActivity.get("Title").toString());
+                        myItem.setDescription(thisActivity.get("Description").toString());
+                        linearLayout.addView(myItem);
+                    } catch (Exception e){
+                        utils.logError(e.getMessage(), className);
+                    }
+                } else {
+                    utils.logError("Unknown error occured!", className);
+                }
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+        }
+
+        setContentView(v);
+    }
+
+    @Override
+    public void remoteFetchUserActivitiesSuccess() {
+        addElementToUserActivityScrollview();
     }
 }

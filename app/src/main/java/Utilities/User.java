@@ -43,6 +43,11 @@ public class User {
     private String userLocality;
     private String userCountryName;
 
+    private Map userActivities;
+
+    // Firebase
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     // Interface
     public interface FetchUserData {
         void remoteUserFetchSuccess();
@@ -50,8 +55,18 @@ public class User {
 
     private FetchUserData fetchUserDataListener;
 
-    public void setFetchUserDataListener(FetchUserData listenert) {
-        fetchUserDataListener = listenert;
+    public void setFetchUserDataListener(FetchUserData listener) {
+        fetchUserDataListener = listener;
+    }
+
+    public interface FetchUserActivities {
+        void remoteFetchUserActivitiesSuccess();
+    }
+
+    private FetchUserActivities fetchUserActivitiesListener;
+
+    public void setFetchUserActivitiesListener(FetchUserActivities listener){
+        fetchUserActivitiesListener = listener;
     }
 
     // Constructors
@@ -65,8 +80,6 @@ public class User {
 
     public void fetchFromRemote() throws Exception {
         if (isUserLoggedIn()) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
             final DocumentReference docRef = db.collection("Users")
                     .document(getFirebaseUserId());
 
@@ -164,11 +177,11 @@ public class User {
         return firebaseUser;
     }
 
-    public String getUserLocality(Context _this){
-        if (getLocation() == null){
+    public String getUserLocality(Context _this) {
+        if (getLocation() == null) {
             return "Unknown";
         }
-        if (userLocality == null){
+        if (userLocality == null) {
             try {
                 Geocoder geocoder = new Geocoder(_this, Locale.getDefault());
                 List<Address> addresses = geocoder.getFromLocation(getLocation().getLatitude(), getLocation().getLongitude(), 1);
@@ -186,11 +199,11 @@ public class User {
         return userLocality;
     }
 
-    public String getUserCountryName(Context _this){
-        if (getLocation() == null){
+    public String getUserCountryName(Context _this) {
+        if (getLocation() == null) {
             return "Unknown";
         }
-        if (userCountryName == null){
+        if (userCountryName == null) {
             try {
                 Geocoder geocoder = new Geocoder(_this, Locale.getDefault());
                 List<Address> addresses = geocoder.getFromLocation(getLocation().getLatitude(), getLocation().getLongitude(), 1);
@@ -205,7 +218,7 @@ public class User {
             }
         }
 
-        return  userCountryName;
+        return userCountryName;
     }
 
     public void saveBloodGroup(Context _this) throws Exception {
@@ -214,7 +227,6 @@ public class User {
                 Map<String, String> user = new HashMap<>();
                 user.put("BloodGroup", getBloodGroup());
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("Users")
                         .document(getFirebaseUserId())
                         .set(user, SetOptions.merge())
@@ -251,7 +263,6 @@ public class User {
                 Map<String, GeoPoint> user = new HashMap<>();
                 user.put("Location", userLocation);
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("Users")
                         .document(firebaseUserId)
                         .set(user, SetOptions.merge())
@@ -271,6 +282,35 @@ public class User {
         } else {
             throw new Exception("Cannot save a null location");
         }
+    }
+
+    public void fetchAllRemoteActivitiesUser() {
+        final DocumentReference docRef = db.collection("Users")
+                .document(getFirebaseUserId())
+                .collection("Activities")
+                .document(getFirebaseUserId());
+
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        userActivities = document.getData();
+
+                        fetchUserActivitiesListener.remoteFetchUserActivitiesSuccess();
+                    } else {
+                        utils.logInfo("No such document", className);
+                    }
+                } else {
+                    utils.logError("Fetch failed with " + task.getException(), className);
+                }
+            }
+        });
+    }
+
+    public Map getUserActivities(){
+        return userActivities;
     }
 
     public static boolean isUserLoggedIn() {

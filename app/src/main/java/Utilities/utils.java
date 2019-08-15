@@ -8,8 +8,6 @@ import android.view.KeyEvent;
 
 import androidx.appcompat.app.AlertDialog;
 
-import io.coderslab.yourheartbeat.EditUserProfile;
-
 public class utils {
     public static void alertError(String errorMsg, Context _this) {
         // Alert dialog
