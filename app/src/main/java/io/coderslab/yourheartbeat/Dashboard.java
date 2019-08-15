@@ -2,6 +2,7 @@ package io.coderslab.yourheartbeat;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import androidx.core.view.ViewCompat;
 import Utilities.User;
 import Utilities.utils;
 
-public class Dashboard extends AppCompatActivity implements User.FetchUserData{
+public class Dashboard extends AppCompatActivity implements User.FetchUserData, UserActivities.OnFragmentInteractionListener{
 
     private String className = "Dashboard.java";
 
@@ -106,5 +107,10 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData{
 
     private void updateUserLocationView(String userLocationString){
         userLocationTextView.setText(userLocationString);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
