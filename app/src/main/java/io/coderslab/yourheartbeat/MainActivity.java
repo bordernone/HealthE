@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Reference components
-        phoneInputField = (EditText) findViewById(R.id.phoneInputField);
-        bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp);
+        phoneInputField = (EditText) findViewById(R.id.phoneInputFieldReqDonation);
+        bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp_req_donation);
 
         // Populate blood group list
         bloodGrpList = getResources().getStringArray(R.array.blood_grp_array_reg);
@@ -54,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
         requestDonationBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 utils.moveToActivity(MainActivity.this, RequestDonation.class);
+                overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
             }
         });
 
         // Participate btn / register
-        registerBtn = (Button) findViewById(R.id.register_btn);
+        registerBtn = (Button) findViewById(R.id.requestDonationBtn);
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 verifyMobile.putExtra("phoneNumber", phoneNumber);
                 verifyMobile.putExtra("bloodGroupId", String.valueOf(bloodGroupId));
                 startActivity(verifyMobile);
+                overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
             } else {
                 utils.alertError("Please enter a valid number", MainActivity.this);
             }

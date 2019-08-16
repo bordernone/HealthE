@@ -57,7 +57,7 @@
                     app:srcCompat="@drawable/heartbeatlogo" />
 
                 <EditText
-                    android:id="@+id/phoneInputField"
+                    android:id="@+id/phoneInputFieldReqDonation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
@@ -119,7 +119,7 @@
                             android:paddingBottom="12dp" />
 
                         <Spinner
-                            android:id="@+id/spinner_blood_grp"
+                            android:id="@+id/spinner_blood_grp_req_donation"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="38dp" />
@@ -129,7 +129,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/register_btn"
+                    android:id="@+id/requestDonationBtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -138,7 +138,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
                     android:background="@drawable/btn_fill_color_primary"
-                    android:text="Participate!"
+                    android:text="@string/participate"
                     android:textColor="@color/colorWhite"
                     app:layout_constraintEnd_toEndOf="@+id/registerformbg"
                     app:layout_constraintStart_toStartOf="@+id/registerformbg"
@@ -156,7 +156,7 @@
                     android:text="OR"
                     app:layout_constraintEnd_toEndOf="@+id/registerformbg"
                     app:layout_constraintStart_toStartOf="@+id/registerformbg"
-                    app:layout_constraintTop_toBottomOf="@+id/register_btn" />
+                    app:layout_constraintTop_toBottomOf="@+id/requestDonationBtn" />
 
                 <Button
                     android:id="@+id/registerReqDonationBtn"
@@ -169,7 +169,7 @@
                     android:layout_marginRight="24dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/btn_fill_color_scheme_coral"
-                    android:text="Request Donation"
+                    android:text="@string/request_blood_donation"
                     android:textColor="@color/colorWhite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/registerformbg"
@@ -186,7 +186,7 @@
                     android:text="@string/phone_input_label"
                     android:textColor="@color/colorSchemePastelRed"
                     android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/phoneInputField"
+                    app:layout_constraintStart_toStartOf="@+id/phoneInputFieldReqDonation"
                     app:layout_constraintTop_toBottomOf="@+id/mainlogo" />
 
                 <TextView
@@ -199,7 +199,7 @@
                     android:textColor="@color/colorSchemePastelRed"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/const_layout_bld_grp"
-                    app:layout_constraintTop_toBottomOf="@+id/phoneInputField" />
+                    app:layout_constraintTop_toBottomOf="@+id/phoneInputFieldReqDonation" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

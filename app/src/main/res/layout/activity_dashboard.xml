@@ -78,7 +78,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Your Blood Group"
+                    android:text="@string/your_blood_group"
                     android:textColor="@color/colorSchemeGainsboro"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutShowBloodGrp"
@@ -130,7 +130,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:text="Loading..."
+                                android:text="@string/loading"
                                 android:textColor="@color/colorSchemeGainsboro"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -159,7 +159,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:text="Loading..."
+                                android:text="@string/loading"
                                 android:textColor="@color/colorSchemeGainsboro"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -178,7 +178,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="Activities"
+                android:text="@string/activities"
                 android:textColor="@color/colorSchemeGray"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="@+id/constraintContainer"
@@ -199,6 +199,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/dashboardFloatingActionButtonReqDonation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="@+id/fragment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/ic_add_color_primary_24dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

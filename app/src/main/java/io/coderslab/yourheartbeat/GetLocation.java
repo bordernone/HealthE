@@ -153,6 +153,7 @@ public class GetLocation extends AppCompatActivity {
 
                                         // Show success page
                                         utils.moveToActivity(GetLocation.this, VerificationSuccess.class);
+                                        overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
                                     } catch (Exception e) {
                                         utils.logError(e.getMessage(), className);
                                         showAlertLocationError("Could not get your location");
@@ -184,6 +185,7 @@ public class GetLocation extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         utils.moveToActivity(GetLocation.this, Dashboard.class);
+                        overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
                     }
                 })
                 .show();

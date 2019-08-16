@@ -1,13 +1,10 @@
 package io.coderslab.yourheartbeat;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -16,10 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 
-import java.util.Iterator;
-import java.util.Map;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import CustomComponents.CustomUserActivityItem;
 import Utilities.User;
 import Utilities.utils;
 
@@ -30,6 +25,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
     private TextView phoneNumberTextView;
     private TextView bloodGroupTextView;
     private TextView userLocationTextView;
+    private FloatingActionButton requestDonationBtn;
 
     private User currentUser = new User();
 
@@ -48,6 +44,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
         bloodGroupTextView = (TextView) findViewById(R.id.editUserBloodGrp);
         userLocationTextView = (TextView) findViewById(R.id.editUserLocation);
         constraintLayoutContainer = (ConstraintLayout) findViewById(R.id.constraintContainer);
+        requestDonationBtn = (FloatingActionButton) findViewById(R.id.dashboardFloatingActionButtonReqDonation);
 
         constraintLayoutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +52,14 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
                 Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(Dashboard.this, constraintLayoutContainer, ViewCompat.getTransitionName(constraintLayoutContainer));
                 startActivityForResult(intent, EDIT_USER_ACTIVITY_REQUEST_CODE, options.toBundle());
+            }
+        });
+
+        requestDonationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                utils.moveToActivity(Dashboard.this, RequestDonation.class);
+                overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
             }
         });
 

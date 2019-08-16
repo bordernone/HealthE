@@ -67,7 +67,7 @@
                     android:drawableLeft="@drawable/ic_account_box_colorprimary_24dp"
                     android:drawablePadding="4dp"
                     android:ems="10"
-                    android:hint="Verification Code"
+                    android:hint="@string/verification_code"
                     android:inputType="number"
                     android:paddingLeft="8dp"
                     android:paddingTop="12dp"
@@ -85,12 +85,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    app:isLoading="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/verificationCodeEditText"
                     app:layout_constraintStart_toStartOf="@+id/verificationCodeEditText"
                     app:layout_constraintTop_toBottomOf="@+id/verificationCodeEditText"
-                    app:title="Verify"
-                    app:isLoading="false"/>
+                    app:title="@string/verify" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

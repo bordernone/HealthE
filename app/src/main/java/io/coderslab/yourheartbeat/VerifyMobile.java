@@ -215,6 +215,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
             Intent getLocation = new Intent(VerifyMobile.this, GetLocation.class);
             startActivity(getLocation);
             finish();
+            overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
         } catch (Exception e) {
             utils.alertError("Something went wrong", VerifyMobile.this);
             utils.logError(e.getMessage(), className);

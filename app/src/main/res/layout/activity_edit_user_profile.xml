@@ -78,7 +78,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:text="Your Blood Group"
+                    android:text="@string/your_blood_group"
                     android:textColor="@color/colorSchemeGainsboro"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutShowBloodGrp"
@@ -129,8 +129,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
+                                android:layout_marginBottom="8dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:text="Loading..."
+                                android:text="@string/loading"
                                 android:textColor="@color/colorSchemeGainsboro"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -159,7 +160,7 @@
                                 android:layout_marginStart="8dp"
                                 android:layout_marginLeft="8dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:text="Loading..."
+                                android:text="@string/loading"
                                 android:textColor="@color/colorSchemeGainsboro"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -207,7 +208,7 @@
                             android:paddingBottom="12dp" />
 
                         <Spinner
-                            android:id="@+id/spinner_blood_grp"
+                            android:id="@+id/spinner_blood_grp_req_donation"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="38dp" />
@@ -226,7 +227,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/const_layout_bld_grp"
                     app:layout_constraintStart_toStartOf="@+id/const_layout_bld_grp"
                     app:layout_constraintTop_toBottomOf="@+id/const_layout_bld_grp"
-                    app:title="Update Blood Group" />
+                    app:title="@string/update_blood_group" />
 
                 <View
                     android:id="@+id/divider"
@@ -246,7 +247,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/btn_fill_color_white"
-                    android:text="Update Location"
+                    android:text="@string/update_location"
                     android:textColor="@color/colorSchemePrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/customLoadingButtonUpdateBloodGrp"

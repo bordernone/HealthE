@@ -1,16 +1,14 @@
 package io.coderslab.yourheartbeat;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import CustomComponents.CustomLoadingButton;
 import Utilities.User;
@@ -45,7 +43,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
         phoneNumberTextView = (TextView) findViewById(R.id.editUserPhn);
         bloodGroupTextView = (TextView) findViewById(R.id.editUserBloodGrp);
         userLocationTextView = (TextView) findViewById(R.id.editUserLocation);
-        bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp);
+        bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp_req_donation);
         updateLocationBtn = (Button) findViewById(R.id.editUserUpdateLocationBtn);
         updateBloodGrpBtn = (CustomLoadingButton) findViewById(R.id.customLoadingButtonUpdateBloodGrp);
         closeEditUserProfileConstraintLayout = (ConstraintLayout) findViewById(R.id.closeEditUserProfileConstraintLayout);
@@ -74,6 +72,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
             @Override
             public void onClick(View view) {
                 utils.moveToActivity(EditUserProfile.this, GetLocation.class);
+                overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
             }
         });
 

@@ -31,6 +31,7 @@ public class VerificationSuccess extends AppCompatActivity {
             public void onClick(View view){
                 utils.moveToActivity(VerificationSuccess.this, Dashboard.class);
                 finish();
+                overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
             }
         });
 
