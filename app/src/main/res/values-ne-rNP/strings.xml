@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Your HeartBeat</string>
+    <string name="app_name">HealthE</string>
     <string name="phone_input_label">तपाई को फोन नम्बर</string>
     <string name="phone_input_hint">Eg: +977-9812345678</string>
     <string name="getting_your_location">तपाई को ठेकाना...</string>

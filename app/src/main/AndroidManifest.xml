@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.coderslab.yourheartbeat">
+    package="io.coderslab.healthe">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -12,14 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".DisplayUserActivity" />
-        <activity android:name=".EditUserProfile" />
-        <activity android:name=".GetLocation" />
-        <activity android:name=".VerificationSuccess" />
-        <activity android:name=".VerifyMobile" />
-        <activity android:name=".Dashboard" />
-        <activity android:name=".RequestDonation" />
-        <activity android:name=".MainActivity">
+        <activity android:name="io.coderslab.healthe.DisplayUserActivity" />
+        <activity android:name="io.coderslab.healthe.EditUserProfile" />
+        <activity android:name="io.coderslab.healthe.GetLocation" />
+        <activity android:name="io.coderslab.healthe.VerificationSuccess" />
+        <activity android:name="io.coderslab.healthe.VerifyMobile" />
+        <activity android:name="io.coderslab.healthe.Dashboard" />
+        <activity android:name="io.coderslab.healthe.RequestDonation" />
+        <activity android:name="io.coderslab.healthe.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
