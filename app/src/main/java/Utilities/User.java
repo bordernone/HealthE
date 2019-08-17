@@ -20,6 +20,8 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.SetOptions;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -67,6 +69,16 @@ public class User {
 
     public void setFetchUserActivitiesListener(FetchUserActivities listener){
         fetchUserActivitiesListener = listener;
+    }
+
+    public interface MakeDonationRequest {
+        void donationRequestSuccess();
+    }
+
+    private MakeDonationRequest makeDonationRequestListener;
+
+    public void setMakeDonationRequestListener(MakeDonationRequest makeDonationRequest){
+        makeDonationRequestListener = makeDonationRequest;
     }
 
     // Constructors
@@ -281,6 +293,38 @@ public class User {
             }
         } else {
             throw new Exception("Cannot save a null location");
+        }
+    }
+
+    public void makeDonationRequestSave(String number, String requestedBloodGrp, String additionalInfo){
+        if (!isUserLoggedIn()){
+            utils.logError("trying to make donation when not logged in", className);
+        } else {
+            String randomNumber = utils.generateRandomNumber(2);
+
+            Map<String, String> data = new HashMap<>();
+            data.put("PhoneNumber", number);
+            data.put("AdditionalInfo", additionalInfo);
+            data.put("RequestedBloodGroup", requestedBloodGrp);
+
+            db.collection("Requests")
+                    .document(getFirebaseUserId())
+                    .collection("AllRequests")
+                    .document(randomNumber)
+                    .set(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            utils.logInfo("DocumentSnapshot successfully written!", className);
+                            makeDonationRequestListener.donationRequestSuccess();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            utils.logError("Error writing document" + e.getMessage(), className);
+                        }
+                    });
         }
     }
 

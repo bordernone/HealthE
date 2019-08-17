@@ -4,7 +4,6 @@
     <string name="phone_input_hint">Eg: +977-9812345678</string>
     <string name="getting_your_location">Getting your location...</string>
     <string name="no_recent_activities">No Recent Activities</string>
-    <string name="request_donation">Request Donation</string>
     <string name="additional_info_optional">Additional Info (Optional)</string>
     <string name="your_blood_group">Your Blood Group</string>
     <string name="loading">Loading...</string>
@@ -17,4 +16,6 @@
     <string name="participate">Participate!</string>
     <string name="verification_code">Verification Code</string>
     <string name="verify">Verify</string>
+    <string name="invalid_phone_number">Invalid Phone Number</string>
+    <string name="select_a_blood_group">Select a blood group</string>
 </resources>

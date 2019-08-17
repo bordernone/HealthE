@@ -49,7 +49,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
         constraintLayoutContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditUserProfile.class);
+                Intent intent = new Intent(Dashboard.this, EditUserProfile.class);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(Dashboard.this, constraintLayoutContainer, ViewCompat.getTransitionName(constraintLayoutContainer));
                 startActivityForResult(intent, EDIT_USER_ACTIVITY_REQUEST_CODE, options.toBundle());
             }
@@ -80,7 +80,7 @@ public class Dashboard extends AppCompatActivity implements User.FetchUserData, 
                     .setPositiveButton("Login", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            utils.moveToActivity(getApplicationContext(), MainActivity.class);
+                            utils.moveToActivity(Dashboard.this, MainActivity.class);
                             finish();
                         }
                     })

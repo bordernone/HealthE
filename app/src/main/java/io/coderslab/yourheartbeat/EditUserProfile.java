@@ -36,7 +36,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
         setContentView(R.layout.activity_edit_user_profile);
 
         if (!User.isUserLoggedIn()) {
-            utils.moveToActivity(getApplicationContext(), MainActivity.class);
+            utils.moveToActivity(EditUserProfile.this, MainActivity.class);
             finish();
         }
         // referencing components

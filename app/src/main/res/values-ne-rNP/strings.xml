@@ -4,7 +4,6 @@
     <string name="phone_input_hint">Eg: +977-9812345678</string>
     <string name="getting_your_location">तपाई को ठेकाना...</string>
     <string name="no_recent_activities">कुनै भर्खरको गतिविधि छैन</string>
-    <string name="request_donation">अनुदान अनुरोध गर्नुहोस्</string>
     <string name="additional_info_optional">थप जानकारी (वैकल्पिक)</string>
     <string name="your_blood_group">तपाईको रक्त समूह</string>
     <string name="loading">लोड हुँदैछ...</string>
@@ -17,4 +16,6 @@
     <string name="participate">"भाग लिनुहोस् "</string>
     <string name="verification_code">भेरिफिकेशन कोड</string>
     <string name="verify">अगाडि बढ्नुहोस्</string>
+    <string name="invalid_phone_number">गलत फोन नम्बर ढाँचा</string>
+    <string name="select_a_blood_group">" रगत समूह छान्नुहोस्"</string>
 </resources>

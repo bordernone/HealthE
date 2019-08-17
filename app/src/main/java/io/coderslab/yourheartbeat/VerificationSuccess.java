@@ -23,7 +23,7 @@ public class VerificationSuccess extends AppCompatActivity {
         verificationSuccessBox.playSoundEffect(SoundEffectConstants.CLICK);
 
         // reference components
-        verificationSuccessBtn = (Button) findViewById(R.id.verificationSuccessContinueBtn);
+        verificationSuccessBtn = (Button) findViewById(R.id.requestDonationSuccessContinueBtn);
 
         // on continue button press
         verificationSuccessBtn.setOnClickListener(new View.OnClickListener(){

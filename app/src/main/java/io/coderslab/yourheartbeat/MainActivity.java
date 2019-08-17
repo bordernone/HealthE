@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Participate btn / register
-        registerBtn = (Button) findViewById(R.id.requestDonationBtn);
+        registerBtn = (Button) findViewById(R.id.requestDonationBtnRequestDonationActivity);
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
