@@ -1,21 +1,58 @@
 {
   "project_info": {
-    "project_number": "160281969749",
-    "firebase_url": "https://yourheartbeat-576a5.firebaseio.com",
-    "project_id": "yourheartbeat-576a5",
-    "storage_bucket": "yourheartbeat-576a5.appspot.com"
+    "project_number": "1041307426261",
+    "firebase_url": "https://healthe-a37c8.firebaseio.com",
+    "project_id": "healthe-a37c8",
+    "storage_bucket": "healthe-a37c8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:160281969749:android:de73fec5b33fb421",
+        "mobilesdk_app_id": "1:1041307426261:android:5bb4497c578d7dac",
+        "android_client_info": {
+          "package_name": "io.coderslab.healthe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041307426261-jc7lv7eai28fvemh5a0m0qo41p4s7l6a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.coderslab.healthe",
+            "certificate_hash": "8c0fba55dfa6d5cbf3ae8bf06b50075ecf6a8972"
+          }
+        },
+        {
+          "client_id": "1041307426261-10nprh6var3mafsnk13qml8lh00j37fm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNldGyA-aCgItaRym74HYE0lzZx92Xiek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041307426261-10nprh6var3mafsnk13qml8lh00j37fm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041307426261:android:de73fec5b33fb421",
         "android_client_info": {
           "package_name": "io.coderslab.yourheartbeat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "160281969749-tt1uut08drrtlf1obaen2de6131gf97n.apps.googleusercontent.com",
+          "client_id": "1041307426261-clqsas8ngfuo8g0untgjhpnbi99c2icv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "io.coderslab.yourheartbeat",
@@ -23,20 +60,20 @@
           }
         },
         {
-          "client_id": "160281969749-s5tv5vgdtd123c0u08fg6qfpeu9eg0c1.apps.googleusercontent.com",
+          "client_id": "1041307426261-10nprh6var3mafsnk13qml8lh00j37fm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAmJJ4bVmGxv_RBn05UvwQDdqoekDZ32ZM"
+          "current_key": "AIzaSyBNldGyA-aCgItaRym74HYE0lzZx92Xiek"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "160281969749-s5tv5vgdtd123c0u08fg6qfpeu9eg0c1.apps.googleusercontent.com",
+              "client_id": "1041307426261-10nprh6var3mafsnk13qml8lh00j37fm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

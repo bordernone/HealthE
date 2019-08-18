@@ -2,6 +2,7 @@ package io.coderslab.yourheartbeat;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -59,6 +60,9 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
         bloodGrpSpinner.setAdapter(adapter);
 
         requestDonationBtn.setButtonClickListener(this);
+
+        // format phone number input
+        phoneInputField.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
     private void getInputFieldValues(){

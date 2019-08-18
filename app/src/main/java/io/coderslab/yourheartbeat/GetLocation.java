@@ -185,6 +185,7 @@ public class GetLocation extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         utils.moveToActivity(GetLocation.this, Dashboard.class);
+                        finish();
                         overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
                     }
                 })

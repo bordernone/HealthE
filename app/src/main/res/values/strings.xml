@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Your HeartBeat</string>
     <string name="phone_input_label">Your Phone Number</string>
-    <string name="phone_input_hint">Eg: +977-9812345678</string>
+    <string name="phone_input_hint">Eg: +977 9812345678</string>
     <string name="getting_your_location">Getting your location...</string>
     <string name="no_recent_activities">No Recent Activities</string>
     <string name="additional_info_optional">Additional Info (Optional)</string>

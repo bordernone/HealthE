@@ -26,14 +26,18 @@ public class VerificationSuccess extends AppCompatActivity {
         verificationSuccessBtn = (Button) findViewById(R.id.requestDonationSuccessContinueBtn);
 
         // on continue button press
-        verificationSuccessBtn.setOnClickListener(new View.OnClickListener(){
+        verificationSuccessBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 utils.moveToActivity(VerificationSuccess.this, Dashboard.class);
                 finish();
-                overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
+                VerificationSuccess.this.overridePendingTransition(R.anim.slide_enter, R.anim.slide_exit);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
 
     }
 }
