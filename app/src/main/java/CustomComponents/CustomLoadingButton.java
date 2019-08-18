@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import io.coderslab.yourheartbeat.R;
+import io.coderslab.healthe.R;
 
 public class CustomLoadingButton extends LinearLayout {
     // ToDo: add ability to make the text non-capitalized for the buttons

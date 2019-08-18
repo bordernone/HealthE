@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import io.coderslab.yourheartbeat.R;
+import io.coderslab.healthe.R;
 
 public class CustomUserActivityItem extends LinearLayout {
 

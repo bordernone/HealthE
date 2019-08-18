@@ -42,43 +42,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1041307426261:android:de73fec5b33fb421",
-        "android_client_info": {
-          "package_name": "io.coderslab.yourheartbeat"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1041307426261-clqsas8ngfuo8g0untgjhpnbi99c2icv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "io.coderslab.yourheartbeat",
-            "certificate_hash": "8c0fba55dfa6d5cbf3ae8bf06b50075ecf6a8972"
-          }
-        },
-        {
-          "client_id": "1041307426261-10nprh6var3mafsnk13qml8lh00j37fm.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBNldGyA-aCgItaRym74HYE0lzZx92Xiek"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1041307426261-10nprh6var3mafsnk13qml8lh00j37fm.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"

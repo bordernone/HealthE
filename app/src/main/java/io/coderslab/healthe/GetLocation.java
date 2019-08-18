@@ -1,4 +1,4 @@
-package io.coderslab.yourheartbeat;
+package io.coderslab.healthe;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

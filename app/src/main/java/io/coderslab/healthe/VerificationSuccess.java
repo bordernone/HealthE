@@ -1,4 +1,4 @@
-package io.coderslab.yourheartbeat;
+package io.coderslab.healthe;
 
 import android.os.Bundle;
 import android.view.SoundEffectConstants;
