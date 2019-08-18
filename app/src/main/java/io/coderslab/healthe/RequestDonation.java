@@ -66,7 +66,7 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
     }
 
     private void getInputFieldValues(){
-        phoneNumber = phoneInputField.getText().toString();
+        phoneNumber = phoneInputField.getText().toString().replaceAll("[^0-9+]", "");;
         additionalInfo = additionalInfoInputField.getText().toString();
         bloodGrpId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
     }
