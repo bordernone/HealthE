@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.functions.FirebaseFunctionsException;
+import com.hbb20.CountryCodePicker;
 
 import CustomComponents.CustomLoadingButton;
 import Utilities.User;
@@ -28,6 +29,7 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
     private Spinner bloodGrpSpinner;
     private EditText additionalInfoInputField;
     private CustomLoadingButton requestDonationBtn;
+    private CountryCodePicker countryCodePicker;
 
     private String phoneNumber;
     private String additionalInfo;
@@ -49,9 +51,13 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
         // reference components
         bloodGrpSpinner = findViewById(R.id.spinner_blood_grp_req_donation);
         registerWrapper = findViewById(R.id.registerformbg);
-        phoneInputField = findViewById(R.id.phoneInputFieldReqDonation);
+        phoneInputField = findViewById(R.id.editText_carrierNumber);
         additionalInfoInputField = findViewById(R.id.editTextReqDonationAdditionalInfo);
         requestDonationBtn = findViewById(R.id.requestDonationBtnRequestDonationActivity);
+        countryCodePicker = findViewById(R.id.country_code_picker_req_donation_activity);
+
+        // Link country code picker with phone number text view
+        countryCodePicker.registerCarrierNumberEditText(phoneInputField);
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.blood_grp_array_req, R.layout.simple_spinner_item);
@@ -66,7 +72,7 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
     }
 
     private void getInputFieldValues(){
-        phoneNumber = phoneInputField.getText().toString().replaceAll("[^0-9+]", "");;
+        phoneNumber = countryCodePicker.getFullNumberWithPlus();
         additionalInfo = additionalInfoInputField.getText().toString();
         bloodGrpId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
     }
@@ -91,7 +97,7 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
         requestDonationBtn.setLoadingState(true);
         if (User.isUserLoggedIn()){
             getInputFieldValues();
-            if (!User.isNumberValid(phoneNumber)){
+            if (!User.isNumberValid(countryCodePicker)){
                 utils.logError("Wrong phone number", className);
                 utils.alertError(getResources().getString(R.string.invalid_phone_number), RequestDonation.this);
                 requestDonationBtn.setLoadingState(false);

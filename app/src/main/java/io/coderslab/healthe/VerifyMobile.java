@@ -119,7 +119,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
                 return false;
             }
         }
-        if (!User.isNumberValid(phoneNumber) || !User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this)) {
+        if (!User.isValidBloodGrpId(bloodGroupId, VerifyMobile.this)) {
             utils.logError("Validation failed. Check log below", className);
             utils.logInfo("2. Something went wrong. phoneNumber: " + phoneNumber + " bloodGroupId: " + bloodGroupId, className);
             return false;

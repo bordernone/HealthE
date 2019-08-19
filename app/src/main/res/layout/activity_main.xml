@@ -56,28 +56,55 @@
                     app:layout_constraintTop_toTopOf="@+id/registerformbg"
                     app:srcCompat="@drawable/heartbeatlogo" />
 
-                <EditText
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/phoneInputFieldReqDonation"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginLeft="24dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:background="@drawable/inputfield"
-                    android:drawableLeft="@drawable/ic_account_box_colorprimary_24dp"
-                    android:drawablePadding="4dp"
-                    android:ems="10"
-                    android:hint="@string/phone_input_hint"
-                    android:inputType="phone"
-                    android:paddingLeft="8dp"
-                    android:paddingTop="12dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="12dp"
-                    android:textColor="@color/colorSchemeGray"
-                    android:textColorLink="@color/colorSchemeGray"
                     app:layout_constraintEnd_toEndOf="@+id/registerformbg"
                     app:layout_constraintHorizontal_bias="0.166"
                     app:layout_constraintStart_toStartOf="@+id/registerformbg"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/country_code_picker_req_donation_activity"
+                            android:layout_width="50dp"
+                            app:ccp_areaCodeDetectedCountry="true"
+                            app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
+                            app:ccp_hintExampleNumber="true"
+                            app:ccp_defaultNameCode="NP"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/inputfield"
+                            android:gravity="center|center_horizontal" />
+
+                        <EditText
+                            android:id="@+id/editText_carrierNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="4dp"
+                            android:background="@drawable/inputfield"
+                            android:inputType="phone"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="12dp"
+                            android:paddingRight="8dp"
+                            android:paddingBottom="12dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorSchemeGray" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/const_layout_bld_grp"

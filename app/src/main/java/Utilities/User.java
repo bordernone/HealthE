@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.SetOptions;
+import com.hbb20.CountryCodePicker;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -379,17 +380,7 @@ public class User {
         }
     }
 
-    public static boolean isNumberValid(String number) {
-        Boolean isValid = true;
-
-        String regex = "^\\+(?:[0-9]-?){6,14}[0-9]$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(number);
-
-        if (!matcher.matches()) {
-            isValid = false;
-        }
-
-        return isValid;
+    public static boolean isNumberValid(CountryCodePicker cpp) {
+        return cpp.isValidFullNumber();
     }
 }

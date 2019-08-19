@@ -11,6 +11,8 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.hbb20.CountryCodePicker;
+
 import Utilities.User;
 import Utilities.utils;
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText phoneInputField;
     private Button requestDonationBtn;
     private Button registerBtn;
+    private CountryCodePicker countryCodePicker;
 
 
     private String[] bloodGrpList;
@@ -39,8 +42,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Reference components
-        phoneInputField = (EditText) findViewById(R.id.phoneInputFieldReqDonation);
-        bloodGrpSpinner = (Spinner) findViewById(R.id.spinner_blood_grp_req_donation);
+        phoneInputField = findViewById(R.id.editText_carrierNumber);
+        bloodGrpSpinner = findViewById(R.id.spinner_blood_grp_req_donation);
+        countryCodePicker = findViewById(R.id.country_code_picker_req_donation_activity);
+
+        // Link country code picker with phone number text view
+        countryCodePicker.registerCarrierNumberEditText(phoneInputField);
 
         // Populate blood group list
         bloodGrpList = getResources().getStringArray(R.array.blood_grp_array_reg);
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         bloodGrpSpinner.setAdapter(adapter);
 
         // Request donation button
-        requestDonationBtn = (Button) findViewById(R.id.registerReqDonationBtn);
+        requestDonationBtn = findViewById(R.id.registerReqDonationBtn);
         requestDonationBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 utils.moveToActivity(MainActivity.this, RequestDonation.class);
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Participate btn / register
-        registerBtn = (Button) findViewById(R.id.requestDonationBtnRequestDonationActivity);
+        registerBtn = findViewById(R.id.requestDonationBtnRequestDonationActivity);
         registerBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -74,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void handleRegisterBtnClick(){
-        phoneNumber = phoneInputField.getText().toString().replaceAll("[^0-9+]", "");
+        phoneNumber = countryCodePicker.getFullNumberWithPlus();
         bloodGroupId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
 
         if (!User.isValidBloodGrpId(bloodGroupId, MainActivity.this)){
             utils.alertError("Please select a blood group", MainActivity.this);
         } else {
-            if (User.isNumberValid(phoneNumber)){
+            if (User.isNumberValid(countryCodePicker)){
                 // Everything is OK; Move to registration
 
                 Intent verifyMobile = new Intent(MainActivity.this, VerifyMobile.class);
