@@ -18,4 +18,6 @@
     <string name="verify">Verify</string>
     <string name="invalid_phone_number">Invalid Phone Number</string>
     <string name="select_a_blood_group">Select a blood group</string>
+    <string name="facebook_app_id">952312448476966</string>
+    <string name="fb_login_protocol_scheme">fb952312448476966</string>
 </resources>

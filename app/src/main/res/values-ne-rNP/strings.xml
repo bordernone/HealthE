@@ -18,4 +18,6 @@
     <string name="verify">अगाडि बढ्नुहोस्</string>
     <string name="invalid_phone_number">गलत फोन नम्बर ढाँचा</string>
     <string name="select_a_blood_group">" रगत समूह छान्नुहोस्"</string>
+    <string name="facebook_app_id">952312448476966</string>
+    <string name="fb_login_protocol_scheme">fb952312448476966</string>
 </resources>

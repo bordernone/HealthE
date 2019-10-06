@@ -86,11 +86,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:isLoading="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/verificationCodeEditText"
                     app:layout_constraintStart_toStartOf="@+id/verificationCodeEditText"
                     app:layout_constraintTop_toBottomOf="@+id/verificationCodeEditText"
                     app:title="@string/verify" />
+
+                <CustomComponents.CustomLoadingButton
+                    android:id="@+id/customLoadingBtnResendCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:isLoading="false"
+                    app:layout_constraintEnd_toEndOf="@+id/verifyBtn"
+                    app:layout_constraintStart_toStartOf="@+id/verifyBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/verifyBtn"
+                    app:title="Resend Code" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

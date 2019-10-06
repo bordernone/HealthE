@@ -20,8 +20,10 @@ public class CustomLoadingButton extends LinearLayout {
     private CharSequence title;
     private Drawable btnBackground;
 
+    private View thisView;
+
     public interface ButtonClickListener {
-        void onButtonClickListener();
+        void onButtonClickListener(View v);
     }
 
     private ButtonClickListener buttonClickListener;
@@ -37,7 +39,7 @@ public class CustomLoadingButton extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        inflate(context, R.layout.custom_loading_button, this);
+        thisView = inflate(context, R.layout.custom_loading_button, this);
         initComponents();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomLoadingButton);
 
@@ -65,7 +67,7 @@ public class CustomLoadingButton extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (buttonClickListener != null) {
-                    buttonClickListener.onButtonClickListener();
+                    buttonClickListener.onButtonClickListener(thisView);
                 }
             }
         });
@@ -73,8 +75,8 @@ public class CustomLoadingButton extends LinearLayout {
 
     private void initComponents() {
         // referencing components
-        button = (Button) findViewById(R.id.customLoadingBtn);
-        progressBar = (ProgressBar) findViewById(R.id.customLoadingBtnProgressBar);
+        button = findViewById(R.id.customLoadingBtn);
+        progressBar = findViewById(R.id.customLoadingBtnProgressBar);
     }
 
     public void setButtonTitle(CharSequence value) {
@@ -91,6 +93,10 @@ public class CustomLoadingButton extends LinearLayout {
             button.setTextScaleX(1); // make button text visible
             button.setClickable(true);
         }
+    }
+
+    public void setButtonClickable(Boolean isClickable){
+        button.setClickable(isClickable);
     }
 
     public void setButtonBackground(Drawable drawable){

@@ -3,12 +3,15 @@ package io.coderslab.healthe;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import CustomComponents.CustomLoadingButton;
@@ -41,6 +46,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
 
     // Buttons
     private CustomLoadingButton verifyButton;
+    private CustomLoadingButton resendCodeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +63,12 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
         mAuth = FirebaseAuth.getInstance();
 
         // referencing components
-        verificationCodeInputField = (EditText) findViewById(R.id.verificationCodeEditText);
-        verifyButton = (CustomLoadingButton) findViewById(R.id.verifyBtn);
+        verificationCodeInputField = findViewById(R.id.verificationCodeEditText);
+        verifyButton = findViewById(R.id.verifyBtn);
+        resendCodeButton = findViewById(R.id.customLoadingBtnResendCode);
+
+        // set resend code button's background
+        resendCodeButton.setButtonBackground(ContextCompat.getDrawable(this, R.drawable.btn_fill_color_gray));
 
         if (setValuesPhoneNumberBloodGroup(savedInstanceState)) {
             sendVerificationCode(phoneNumber);
@@ -78,6 +88,7 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
 
         // handle button click
         verifyButton.setButtonClickListener(this);
+        resendCodeButton.setButtonClickListener(this);
     }
 
     private void handleVerifyBtnClick() {
@@ -199,12 +210,35 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
     }
 
     @Override
-    public void onButtonClickListener() {
-        handleVerifyBtnClick();
+    public void onButtonClickListener(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.verifyBtn:
+                handleVerifyBtnClick();
+                break;
+
+            case R.id.customLoadingBtnResendCode:
+                resendCodeButton.setButtonClickable(false);
+                new CountDownTimer(60000,1000) {
+                    @Override
+                    public void onTick(long l) {
+                        resendCodeButton.setButtonTitle("Wait for " + l / 1000 + " seconds");
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        resendCodeButton.setButtonTitle("Resend Code");
+                        sendVerificationCode(phoneNumber);
+                        resendCodeButton.setButtonClickable(true);
+                    }
+                }.start();
+                utils.logInfo("Resending Code Now", className);
+                break;
+        }
     }
 
     public void saveToDatabase(){
-        utils.logInfo("Successful user verification. Saving to firestore database...", className);
+        utils.logInfo("Successful user verification. Saving to FireStore database...", className);
 
         // Save to database
         try {
@@ -221,4 +255,5 @@ public class VerifyMobile extends AppCompatActivity implements CustomLoadingButt
             utils.logError(e.getMessage(), className);
         }
     }
+
 }

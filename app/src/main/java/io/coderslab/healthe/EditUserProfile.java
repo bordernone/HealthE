@@ -108,7 +108,7 @@ public class EditUserProfile extends AppCompatActivity implements User.FetchUser
     }
 
     @Override
-    public void onButtonClickListener() {
+    public void onButtonClickListener(View v) {
         bloodGroupId = Integer.valueOf(String.valueOf(bloodGrpSpinner.getSelectedItemId()));
 
         if (!User.isValidBloodGrpId(bloodGroupId, EditUserProfile.this)) {

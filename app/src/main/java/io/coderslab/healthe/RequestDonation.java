@@ -3,6 +3,7 @@ package io.coderslab.healthe;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -93,7 +94,7 @@ public class RequestDonation extends AppCompatActivity implements CustomLoadingB
     }
 
     @Override
-    public void onButtonClickListener() {
+    public void onButtonClickListener(View v) {
         requestDonationBtn.setLoadingState(true);
         if (User.isUserLoggedIn()){
             getInputFieldValues();

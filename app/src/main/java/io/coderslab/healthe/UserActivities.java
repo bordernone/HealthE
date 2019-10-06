@@ -105,11 +105,10 @@ public class UserActivities extends Fragment implements User.FetchUserActivities
                                 utils.logError(e.getMessage(), className);
                             }
                         } else {
-                            utils.logError("Unknown error occured!", className);
+                            utils.logError("Unknown error occurred!", className);
                         }
                         it.remove(); // avoids a ConcurrentModificationException
                     }
-
                 } catch (Exception e) {
                     showNoActivitiesView();
                     utils.logError(e.getMessage(), className);
@@ -127,7 +126,7 @@ public class UserActivities extends Fragment implements User.FetchUserActivities
         noActivitiesTextView.setText(R.string.no_recent_activities);
         noActivitiesTextView.setTextColor(getResources().getColor(R.color.colorSchemeGray));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
-                ((int) LinearLayout.LayoutParams.MATCH_PARENT, (int) LinearLayout.LayoutParams.WRAP_CONTENT);
+                (LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         noActivitiesTextView.setLayoutParams(params);
         noActivitiesTextView.setGravity(Gravity.CENTER);
         userActivitiesContainer.addView(noActivitiesTextView);
